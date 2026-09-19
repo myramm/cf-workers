@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DUAR VPN - Multi Country & Provider VLESS Generator</title>
+    <link rel="icon" type="image/png" href="/bnr.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -46,16 +47,14 @@
 
     <!-- Header -->
     <header class="border-b border-slate-800/80 bg-dark-900/60 sticky top-0 z-50 backdrop-blur-md">
-        <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
+        <div class="max-w-5xl mx-auto px-4 py-3.5 flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-brand-500/20">
-                    <i class="fa-solid fa-bolt text-white text-lg"></i>
-                </div>
+                <img src="/bnr.png" alt="DUAR Logo" class="w-10 h-10 rounded-xl object-cover border border-brand-500/30 shadow-lg shadow-brand-500/20">
                 <div>
-                    <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-brand-400 to-indigo-400">
+                    <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-brand-400 to-indigo-400 leading-tight">
                         DUAR VPN
                     </h1>
-                    <p class="text-xs text-slate-400">Multi-Country & Datacenter VLESS Generator</p>
+                    <p class="text-[11px] text-slate-400">Multi-Country & Datacenter VLESS Generator</p>
                 </div>
             </div>
             <div class="flex items-center gap-2">
@@ -67,22 +66,26 @@
     </header>
 
     <!-- Main Content -->
-    <main class="max-w-5xl mx-auto px-4 mt-8 space-y-8">
+    <main class="max-w-5xl mx-auto px-4 mt-6 space-y-6">
 
-        <!-- Top Banner / Hero -->
-        <div class="glass rounded-2xl p-6 glow relative overflow-hidden">
-            <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                <div>
-                    <h2 class="text-2xl font-bold text-white flex items-center gap-2">
-                        🌍 Buat Akun VLESS Multi-Negara & Provider
-                    </h2>
-                    <p class="text-slate-400 text-sm mt-1">
-                        Tersedia 10 negara pilihan, masing-masing dengan minimal 5 provider datacenter terbaik dunia.
-                    </p>
-                </div>
-                <div class="text-xs text-slate-400 bg-dark-900/80 px-4 py-2.5 rounded-xl border border-slate-700/50">
-                    <span class="text-slate-500">Domain Backend:</span> <span class="text-brand-400 font-mono font-semibold" id="hostDisplay">vpn.duar.eu.cc</span>
+        <!-- Top Banner / Hero with Banner Image -->
+        <div class="glass rounded-2xl overflow-hidden glow relative border border-slate-800/80 shadow-2xl">
+            <div class="w-full h-44 sm:h-52 md:h-64 relative overflow-hidden bg-dark-900">
+                <img src="/bnr.png" alt="DUAR Banner" class="w-full h-full object-cover object-center brightness-90 filter transition duration-500 hover:scale-105">
+                <div class="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/60 to-transparent flex items-end p-6">
+                    <div class="w-full flex flex-col sm:flex-row justify-between items-start sm:items-end gap-3">
+                        <div>
+                            <h2 class="text-2xl md:text-3xl font-extrabold text-white drop-shadow-md flex items-center gap-2">
+                                🚀 DUAR VLESS TUNNEL
+                            </h2>
+                            <p class="text-slate-300 text-xs sm:text-sm mt-1 drop-shadow">
+                                Multi-Country Cloudflare Anycast & Dedicated Datacenter Proxy Generator
+                            </p>
+                        </div>
+                        <div class="text-xs text-slate-300 bg-dark-900/90 px-3.5 py-2 rounded-xl border border-slate-700/60 backdrop-blur-md shrink-0">
+                            <span class="text-slate-400">Backend:</span> <span class="text-brand-400 font-mono font-bold" id="hostDisplay">vpn.duar.eu.cc</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -234,7 +237,11 @@
         </div>
 
         <!-- Footer Credit -->
-        <footer class="text-center pt-8 border-t border-slate-800/60 text-xs text-slate-500">
+        <footer class="text-center pt-8 border-t border-slate-800/60 text-xs text-slate-500 space-y-2">
+            <div class="flex items-center justify-center gap-2">
+                <img src="/bnr.png" alt="DUAR" class="w-6 h-6 rounded-md object-cover border border-slate-700">
+                <span class="font-bold text-slate-300">DUAR VPN</span>
+            </div>
             <p>Created with <span class="text-rose-500">❤️</span> by <span class="text-brand-400 font-semibold">Rama Tukang code</span> &bull; Powered by Cloudflare & Vercel</p>
         </footer>
 
