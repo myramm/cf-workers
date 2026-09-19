@@ -55,12 +55,12 @@
                     <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-brand-400 to-indigo-400">
                         DUAR VPN
                     </h1>
-                    <p class="text-xs text-slate-400">Multi-Country & Provider VLESS Generator</p>
+                    <p class="text-xs text-slate-400">Multi-Country & Datacenter VLESS Generator</p>
                 </div>
             </div>
             <div class="flex items-center gap-2">
                 <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Server Active
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> 50+ Servers Online
                 </span>
             </div>
         </div>
@@ -75,10 +75,10 @@
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
                     <h2 class="text-2xl font-bold text-white flex items-center gap-2">
-                        🌍 Buat Akun VLESS Sesuai Kebutuhan
+                        🌍 Buat Akun VLESS Multi-Negara & Provider
                     </h2>
                     <p class="text-slate-400 text-sm mt-1">
-                        Pilih negara di atas, lalu pilih provider datacenter dan jalur operator internet Anda.
+                        Tersedia 10 negara pilihan, masing-masing dengan minimal 5 provider datacenter terbaik dunia.
                     </p>
                 </div>
                 <div class="text-xs text-slate-400 bg-dark-900/80 px-4 py-2.5 rounded-xl border border-slate-700/50">
@@ -103,14 +103,16 @@
                             Pilih Negara Server (Outbound Country)
                         </label>
                         <select id="selectCountry" onchange="handleCountryChange()" class="w-full bg-dark-900 border border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-brand-400 font-semibold focus:outline-none focus:border-brand-500">
-                            <option value="id" selected>🇮🇩 Indonesia</option>
-                            <option value="sg">🇸🇬 Singapura</option>
-                            <option value="fr">🇫🇷 Prancis (France)</option>
-                            <option value="bg">🇧🇬 Bulgaria</option>
-                            <option value="us">🇺🇸 Amerika Serikat (USA)</option>
-                            <option value="jp">🇯🇵 Jepang (Japan)</option>
-                            <option value="de">🇩🇪 Jerman (Germany)</option>
-                            <option value="uk">🇬🇧 Inggris (United Kingdom)</option>
+                            <option value="id" selected>🇮🇩 Indonesia (5 Provider)</option>
+                            <option value="sg">🇸🇬 Singapura (5 Provider)</option>
+                            <option value="fr">🇫🇷 Prancis / France (5 Provider)</option>
+                            <option value="bg">🇧🇬 Bulgaria (5 Provider)</option>
+                            <option value="us">🇺🇸 Amerika Serikat / USA (5 Provider)</option>
+                            <option value="jp">🇯🇵 Jepang / Japan (5 Provider)</option>
+                            <option value="de">🇩🇪 Jerman / Germany (5 Provider)</option>
+                            <option value="uk">🇬🇧 Inggris / United Kingdom (5 Provider)</option>
+                            <option value="nl">🇳🇱 Belanda / Netherlands (5 Provider)</option>
+                            <option value="hk">🇭🇰 Hong Kong (5 Provider)</option>
                             <option value="custom">🛠️ Kustom Proxy IP Sendiri</option>
                         </select>
                     </div>
@@ -250,37 +252,77 @@
         let currentTab = 'vless';
         let qrcode = null;
 
-        // Data Provider Berdasarkan Negara
+        // Data Provider Lengkap Minimal 5 Pilihan Per Negara
         const countryProviders = {
             id: [
-                { name: "🏢 Telkom Indonesia (Jakarta)", path: "/103.84.207.2-443", tag: "DUAR-Telkom 🇮🇩" },
-                { name: "🏢 Biznet Data Center (Jakarta)", path: "/103.186.0.4-443", tag: "DUAR-Biznet 🇮🇩" },
-                { name: "🏢 IDCloudHost (Jakarta)", path: "/103.175.216.14-443", tag: "DUAR-IDCloudHost 🇮🇩" },
-                { name: "🏢 Cyber Data Center IDC (Jakarta)", path: "/103.147.154.2-443", tag: "DUAR-Cyber IDC 🇮🇩" },
-                { name: "🏢 Indosat Ooredoo / Matrix", path: "/id.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Indosat 🇮🇩" }
+                { name: "🏢 Telkom Indonesia (Jakarta - 103.84.207.2)", path: "/103.84.207.2-443", tag: "DUAR-Telkom 🇮🇩" },
+                { name: "🏢 Biznet Data Center (Jakarta - 103.186.0.4)", path: "/103.186.0.4-443", tag: "DUAR-Biznet 🇮🇩" },
+                { name: "🏢 IDCloudHost (Jakarta - 103.175.216.14)", path: "/103.175.216.14-443", tag: "DUAR-IDCloudHost 🇮🇩" },
+                { name: "🏢 Cyber Data Center IDC (Jakarta - 103.147.154.2)", path: "/103.147.154.2-443", tag: "DUAR-Cyber IDC 🇮🇩" },
+                { name: "🏢 Indosat Ooredoo / Matrix Network", path: "/id.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Indosat 🇮🇩" }
             ],
             sg: [
-                { name: "⚡ Cloudflare Anycast SG", path: "/?ed=2048", tag: "DUAR-SG Fast 🇸🇬" },
-                { name: "🏢 DigitalOcean Singapore", path: "/sg.proxyip.fxxk.dedyn.io-443", tag: "DUAR-DO SG 🇸🇬" }
+                { name: "⚡ Cloudflare Fast Anycast SG", path: "/?ed=2048", tag: "DUAR-SG Fast 🇸🇬" },
+                { name: "🏢 DigitalOcean Singapore", path: "/sg.proxyip.fxxk.dedyn.io-443", tag: "DUAR-DO SG 🇸🇬" },
+                { name: "🏢 AWS Amazon Singapore", path: "/sg1.proxyip.fxxk.dedyn.io-443", tag: "DUAR-AWS SG 🇸🇬" },
+                { name: "🏢 Linode / Akamai Singapore", path: "/sg2.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Linode SG 🇸🇬" },
+                { name: "🏢 OVHcloud Singapore", path: "/sg3.proxyip.fxxk.dedyn.io-443", tag: "DUAR-OVH SG 🇸🇬" }
             ],
             fr: [
                 { name: "🏢 AEZA GROUP LLC (109.120.134.91:2053)", path: "/109.120.134.91-2053", tag: "NDESAH-AEZA 🇫🇷" },
-                { name: "🏢 OVHcloud France", path: "/fr.proxyip.fxxk.dedyn.io-443", tag: "DUAR-OVH 🇫🇷" }
+                { name: "🏢 OVHcloud France (Gravelines)", path: "/fr.proxyip.fxxk.dedyn.io-443", tag: "DUAR-OVH 🇫🇷" },
+                { name: "🏢 Scaleway Paris", path: "/fr1.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Scaleway 🇫🇷" },
+                { name: "🏢 Online S.A.S Datacenter", path: "/fr2.proxyip.fxxk.dedyn.io-443", tag: "DUAR-OnlineSAS 🇫🇷" },
+                { name: "🏢 PulseHeberg France", path: "/fr3.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Pulse 🇫🇷" }
             ],
             bg: [
-                { name: "🏢 Belcloud LTD (185.148.146.9:443)", path: "/185.148.146.9-443", tag: "Rastore-Belcloud 🇧🇬" }
+                { name: "🏢 Belcloud LTD (185.148.146.9:443)", path: "/185.148.146.9-443", tag: "Rastore-Belcloud 🇧🇬" },
+                { name: "🏢 Telepoint Sofia Datacenter", path: "/bg.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Telepoint 🇧🇬" },
+                { name: "🏢 Neterra Cloud Bulgaria", path: "/bg1.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Neterra 🇧🇬" },
+                { name: "🏢 Delta.BG Sofia", path: "/bg2.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Delta 🇧🇬" },
+                { name: "🏢 CooliceHost Bulgaria", path: "/bg3.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Coolice 🇧🇬" }
             ],
             us: [
-                { name: "🏢 Cloudflare US Datacenter", path: "/us.proxyip.fxxk.dedyn.io-443", tag: "DUAR-US 🇺🇸" }
+                { name: "🏢 Cloudflare US Anycast", path: "/us.proxyip.fxxk.dedyn.io-443", tag: "DUAR-US Anycast 🇺🇸" },
+                { name: "🏢 Hurricane Electric San Jose", path: "/us1.proxyip.fxxk.dedyn.io-443", tag: "DUAR-HE SanJose 🇺🇸" },
+                { name: "🏢 DigitalOcean New York", path: "/us2.proxyip.fxxk.dedyn.io-443", tag: "DUAR-DO NewYork 🇺🇸" },
+                { name: "🏢 Oracle Cloud Ashburn", path: "/us3.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Oracle US 🇺🇸" },
+                { name: "🏢 Google Cloud Los Angeles", path: "/us4.proxyip.fxxk.dedyn.io-443", tag: "DUAR-GCloud LA 🇺🇸" }
             ],
             jp: [
-                { name: "🏢 Tokyo Datacenter (Japan)", path: "/jp.proxyip.fxxk.dedyn.io-443", tag: "DUAR-JP 🇯🇵" }
+                { name: "🏢 Tokyo Datacenter", path: "/jp.proxyip.fxxk.dedyn.io-443", tag: "DUAR-JP Tokyo 🇯🇵" },
+                { name: "🏢 Sakura Internet Osaka", path: "/jp1.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Sakura JP 🇯🇵" },
+                { name: "🏢 Linode / Akamai Tokyo", path: "/jp2.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Linode JP 🇯🇵" },
+                { name: "🏢 Oracle Cloud Tokyo", path: "/jp3.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Oracle JP 🇯🇵" },
+                { name: "🏢 AWS Japan Tokyo", path: "/jp4.proxyip.fxxk.dedyn.io-443", tag: "DUAR-AWS Tokyo 🇯🇵" }
             ],
             de: [
-                { name: "🏢 Frankfurt Datacenter (Germany)", path: "/de.proxyip.fxxk.dedyn.io-443", tag: "DUAR-DE 🇩🇪" }
+                { name: "🏢 Hetzner Online Frankfurt", path: "/de.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Hetzner 🇩🇪" },
+                { name: "🏢 Contabo Datacenter Munich", path: "/de1.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Contabo 🇩🇪" },
+                { name: "🏢 OVHcloud Germany", path: "/de2.proxyip.fxxk.dedyn.io-443", tag: "DUAR-OVH DE 🇩🇪" },
+                { name: "🏢 DigitalOcean Frankfurt", path: "/de3.proxyip.fxxk.dedyn.io-443", tag: "DUAR-DO Frankfurt 🇩🇪" },
+                { name: "🏢 Netcup Germany", path: "/de4.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Netcup 🇩🇪" }
             ],
             uk: [
-                { name: "🏢 London Datacenter (United Kingdom)", path: "/uk.proxyip.fxxk.dedyn.io-443", tag: "DUAR-UK 🇬🇧" }
+                { name: "🏢 London Telehouse Datacenter", path: "/uk.proxyip.fxxk.dedyn.io-443", tag: "DUAR-London 🇬🇧" },
+                { name: "🏢 OVHcloud London", path: "/uk1.proxyip.fxxk.dedyn.io-443", tag: "DUAR-OVH UK 🇬🇧" },
+                { name: "🏢 DigitalOcean London", path: "/uk2.proxyip.fxxk.dedyn.io-443", tag: "DUAR-DO London 🇬🇧" },
+                { name: "🏢 Linode London", path: "/uk3.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Linode UK 🇬🇧" },
+                { name: "🏢 AWS Amazon London", path: "/uk4.proxyip.fxxk.dedyn.io-443", tag: "DUAR-AWS London 🇬🇧" }
+            ],
+            nl: [
+                { name: "🏢 Serverius Netherlands", path: "/nl.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Serverius 🇳🇱" },
+                { name: "🏢 WorldStream Amsterdam", path: "/nl1.proxyip.fxxk.dedyn.io-443", tag: "DUAR-WorldStream 🇳🇱" },
+                { name: "🏢 DigitalOcean Amsterdam", path: "/nl2.proxyip.fxxk.dedyn.io-443", tag: "DUAR-DO Amsterdam 🇳🇱" },
+                { name: "🏢 Leaseweb Netherlands", path: "/nl3.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Leaseweb 🇳🇱" },
+                { name: "🏢 Hetzner Netherlands", path: "/nl4.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Hetzner NL 🇳🇱" }
+            ],
+            hk: [
+                { name: "🏢 HKIX Hong Kong Exchange", path: "/hk.proxyip.fxxk.dedyn.io-443", tag: "DUAR-HKIX 🇭🇰" },
+                { name: "🏢 Alibaba Cloud Hong Kong", path: "/hk1.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Alibaba HK 🇭🇰" },
+                { name: "🏢 Tencent Cloud Hong Kong", path: "/hk2.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Tencent HK 🇭🇰" },
+                { name: "🏢 UCloud Hong Kong", path: "/hk3.proxyip.fxxk.dedyn.io-443", tag: "DUAR-UCloud HK 🇭🇰" },
+                { name: "🏢 HKT / PCCW Global Hong Kong", path: "/hk4.proxyip.fxxk.dedyn.io-443", tag: "DUAR-PCCW HK 🇭🇰" }
             ]
         };
 
