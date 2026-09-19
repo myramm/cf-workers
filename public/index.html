@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DUAR VPN - Multi Server VLESS Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            900: '#0c4a6e',
+                        },
+                        dark: {
+                            800: '#1e293b',
+                            850: '#172033',
+                            900: '#0f172a',
+                            950: '#090d16',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glow {
+            box-shadow: 0 0 25px -5px rgba(14, 165, 233, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-dark-950 text-slate-100 min-h-screen font-sans antialiased selection:bg-brand-500 selection:text-white pb-16">
+
+    <!-- Header -->
+    <header class="border-b border-slate-800/80 bg-dark-900/60 sticky top-0 z-50 backdrop-blur-md">
+        <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-brand-500/20">
+                    <i class="fa-solid fa-bolt text-white text-lg"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-brand-400 to-indigo-400">
+                        DUAR VPN
+                    </h1>
+                    <p class="text-xs text-slate-400">Multi-Country Edge VLESS Generator</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Multi-Server Online
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto px-4 mt-8 space-y-8">
+
+        <!-- Top Banner / Hero -->
+        <div class="glass rounded-2xl p-6 glow relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+                        🌍 Buat Akun VLESS Multi-Negara
+                    </h2>
+                    <p class="text-slate-400 text-sm mt-1">
+                        Pilih lokasi negara server keluar (Prancis, Bulgaria, Singapura, US, Jepang, dll) dengan Cloudflare CDN.
+                    </p>
+                </div>
+                <div class="text-xs text-slate-400 bg-dark-900/80 px-4 py-2.5 rounded-xl border border-slate-700/50">
+                    <span class="text-slate-500">Domain Server:</span> <span class="text-brand-400 font-mono font-semibold" id="hostDisplay">vpn.duar.eu.cc</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- Left Form: Generator Settings -->
+            <div class="lg:col-span-6 space-y-6">
+                <div class="glass rounded-2xl p-6 space-y-5">
+                    <h3 class="text-lg font-semibold text-white flex items-center gap-2 border-b border-slate-800 pb-3">
+                        <i class="fa-solid fa-sliders text-brand-400"></i> Pengaturan Server & Akun
+                    </h3>
+
+                    <!-- Server Location (ProxyIP Path) -->
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                            📍 Lokasi Negara / Server Keluar
+                        </label>
+                        <select id="selectServerLocation" onchange="handleServerChange()" class="w-full bg-dark-900 border border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-brand-400 font-semibold focus:outline-none focus:border-brand-500">
+                            <option value="/109.120.134.91-2053" data-name="NDESAH-AEZA GROUP 🇫🇷">🇫🇷 Prancis (AEZA GROUP LLC - 109.120.134.91:2053)</option>
+                            <option value="/185.148.146.9-443" data-name="Rastore-Belcloud 🇧🇬">🇧🇬 Bulgaria (Belcloud LTD - 185.148.146.9:443)</option>
+                            <option value="/?ed=2048" data-name="DUAR-SG Fast 🇸🇬" selected>🇸🇬 Singapura (Cloudflare Fast Anycast)</option>
+                            <option value="/us.proxyip.fxxk.dedyn.io-443" data-name="DUAR-US 🇺🇸">🇺🇸 Amerika Serikat (US Outbound)</option>
+                            <option value="/jp.proxyip.fxxk.dedyn.io-443" data-name="DUAR-JP 🇯🇵">🇯🇵 Jepang (Tokyo Outbound)</option>
+                            <option value="/de.proxyip.fxxk.dedyn.io-443" data-name="DUAR-DE 🇩🇪">🇩🇪 Jerman (Frankfurt Outbound)</option>
+                            <option value="/uk.proxyip.fxxk.dedyn.io-443" data-name="DUAR-UK 🇬🇧">🇬🇧 Inggris (London Outbound)</option>
+                            <option value="custom" data-name="DUAR-Custom">🛠️ Custom Proxy IP & Port...</option>
+                        </select>
+                        <div id="customProxyBox" class="hidden mt-2 flex gap-2">
+                            <input type="text" id="customProxyIp" placeholder="IP: 109.120.134.91" class="flex-1 bg-dark-900 border border-slate-700/80 rounded-xl px-3 py-2 text-xs text-slate-200 font-mono focus:outline-none focus:border-brand-500">
+                            <input type="number" id="customProxyPort" placeholder="Port: 2053" value="443" class="w-24 bg-dark-900 border border-slate-700/80 rounded-xl px-3 py-2 text-xs text-slate-200 font-mono focus:outline-none focus:border-brand-500">
+                        </div>
+                    </div>
+
+                    <!-- Clean IP Inbound Presets -->
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                            ⚡ Alamat Server Inbound (Clean IP)
+                        </label>
+                        <select id="selectCleanIp" onchange="handleCleanIpChange()" class="w-full bg-dark-900 border border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-brand-500">
+                            <option value="104.17.3.81">⚡ Cloudflare Clean IP (104.17.3.81)</option>
+                            <option value="104.18.2.1">⚡ Telkomsel / By.U (104.18.2.1)</option>
+                            <option value="172.67.73.1">⚡ Indihome / Telkom (172.67.73.1)</option>
+                            <option value="104.21.2.1">⚡ XL / Axis (104.21.2.1)</option>
+                            <option value="162.159.138.1">⚡ Tri / Smartfren (162.159.138.1)</option>
+                            <option value="vpn.duar.eu.cc">🌐 Domain Asli (vpn.duar.eu.cc)</option>
+                            <option value="custom">🛠️ Masukkan Custom Clean IP...</option>
+                        </select>
+                        <input type="text" id="customCleanIp" placeholder="Contoh: 104.16.0.1" class="hidden mt-2 w-full bg-dark-900 border border-slate-700/80 rounded-xl px-4 py-2 text-sm text-slate-200 font-mono focus:outline-none focus:border-brand-500">
+                    </div>
+
+                    <!-- Host / SNI -->
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Host / SNI Server</label>
+                        <input type="text" id="inputHost" value="vpn.duar.eu.cc" class="w-full bg-dark-900 border border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-brand-400 font-mono focus:outline-none focus:border-brand-500">
+                    </div>
+
+                    <!-- UUID -->
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 flex justify-between">
+                            <span>User UUID</span>
+                            <button onclick="generateUUID()" class="text-brand-400 hover:text-brand-300 normal-case flex items-center gap-1">
+                                <i class="fa-solid fa-arrows-rotate"></i> Acak UUID
+                            </button>
+                        </label>
+                        <input type="text" id="inputUUID" value="91ade0d4-a4c8-4dde-b2b3-1365853b70ce" class="w-full bg-dark-900 border border-slate-700/80 rounded-xl px-4 py-2.5 text-xs text-slate-300 font-mono focus:outline-none focus:border-brand-500">
+                    </div>
+
+                    <!-- Remark / Label -->
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Nama Profil (Remark)</label>
+                        <input type="text" id="inputRemark" value="DUAR-SG Fast 🇸🇬" class="w-full bg-dark-900 border border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-brand-500">
+                    </div>
+
+                    <button onclick="generateConfig()" class="w-full py-3 px-4 bg-gradient-to-r from-brand-500 to-indigo-600 hover:from-brand-600 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg shadow-brand-500/25 transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-bolt"></i> Generate Akun VLESS
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right Form: Output & Export -->
+            <div class="lg:col-span-6 space-y-6">
+                <div class="glass rounded-2xl p-6 space-y-5">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                        <h3 class="text-lg font-semibold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-qrcode text-brand-400"></i> Hasil Konfigurasi
+                        </h3>
+                        <div class="flex gap-2 text-xs">
+                            <button onclick="switchTab('vless')" id="tabBtn-vless" class="px-3 py-1 rounded-lg bg-brand-500/20 text-brand-400 border border-brand-500/30 font-medium">VLESS URL</button>
+                            <button onclick="switchTab('clash')" id="tabBtn-clash" class="px-3 py-1 rounded-lg bg-dark-900 text-slate-400 hover:text-slate-200 font-medium">Clash</button>
+                            <button onclick="switchTab('singbox')" id="tabBtn-singbox" class="px-3 py-1 rounded-lg bg-dark-900 text-slate-400 hover:text-slate-200 font-medium">Sing-box</button>
+                        </div>
+                    </div>
+
+                    <!-- QR Code & Link Output -->
+                    <div class="flex flex-col sm:flex-row gap-5 items-center">
+                        <div id="qrcodeBox" class="bg-white p-3 rounded-xl shadow-md shrink-0 flex items-center justify-center w-36 h-36"></div>
+                        <div class="w-full space-y-2">
+                            <p class="text-xs text-slate-400">Scan QR Code dengan <b>v2rayNG</b> atau salin link di bawah ini:</p>
+                            <div class="flex gap-2">
+                                <button onclick="copyToClipboard('vlessLinkText')" class="flex-1 py-2 px-3 bg-brand-500 hover:bg-brand-600 text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition">
+                                    <i class="fa-regular fa-copy"></i> Salin Link VLESS
+                                </button>
+                                <button onclick="copySubLink()" class="py-2 px-3 bg-dark-900 hover:bg-slate-800 border border-slate-700 text-slate-200 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition">
+                                    <i class="fa-solid fa-link"></i> Salin Sub URL
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Code Area -->
+                    <div class="relative">
+                        <textarea id="outputArea" readonly class="w-full h-36 bg-dark-900 border border-slate-800 rounded-xl p-3 text-xs font-mono text-slate-300 resize-none focus:outline-none"></textarea>
+                        <button onclick="copyOutputArea()" class="absolute right-3 top-3 text-xs bg-slate-800/80 hover:bg-slate-700 text-slate-300 px-2.5 py-1 rounded-md border border-slate-700">
+                            <i class="fa-regular fa-copy"></i> Copy
+                        </button>
+                    </div>
+
+                    <!-- Quick App Launch Buttons -->
+                    <div class="pt-2 border-t border-slate-800 flex gap-3 text-xs">
+                        <a id="v2rayLinkBtn" href="#" class="flex-1 py-2 text-center bg-dark-900 border border-slate-700 hover:border-brand-500 rounded-xl text-slate-300 hover:text-brand-400 transition">
+                            <i class="fa-solid fa-mobile-screen mr-1"></i> Buka di v2rayNG
+                        </a>
+                        <a id="clashLinkBtn" href="#" class="flex-1 py-2 text-center bg-dark-900 border border-slate-700 hover:border-indigo-500 rounded-xl text-slate-300 hover:text-indigo-400 transition">
+                            <i class="fa-solid fa-cat mr-1"></i> Buka di Clash
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-brand-500 text-white px-4 py-2.5 rounded-xl shadow-lg text-xs font-semibold transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2">
+        <i class="fa-solid fa-circle-check"></i> <span id="toastMsg">Tersalin ke clipboard!</span>
+    </div>
+
+    <!-- Hidden Input for Copy -->
+    <input type="hidden" id="vlessLinkText">
+
+    <script>
+        let currentTab = 'vless';
+        let qrcode = null;
+
+        function init() {
+            generateConfig();
+        }
+
+        function generateUUID(triggerGenerate = true) {
+            const uuid = ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+                (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+            );
+            document.getElementById('inputUUID').value = uuid;
+            if (triggerGenerate) generateConfig();
+        }
+
+        function handleServerChange() {
+            const select = document.getElementById('selectServerLocation');
+            const customBox = document.getElementById('customProxyBox');
+            const selectedOption = select.options[select.selectedIndex];
+            
+            if (select.value === 'custom') {
+                customBox.classList.remove('hidden');
+            } else {
+                customBox.classList.add('hidden');
+                document.getElementById('inputRemark').value = selectedOption.getAttribute('data-name');
+            }
+            generateConfig();
+        }
+
+        function handleCleanIpChange() {
+            const select = document.getElementById('selectCleanIp');
+            const customInput = document.getElementById('customCleanIp');
+            if (select.value === 'custom') {
+                customInput.classList.remove('hidden');
+            } else {
+                customInput.classList.add('hidden');
+            }
+            generateConfig();
+        }
+
+        function getActivePath() {
+            const select = document.getElementById('selectServerLocation');
+            if (select.value === 'custom') {
+                const ip = document.getElementById('customProxyIp').value.trim();
+                const port = document.getElementById('customProxyPort').value.trim() || '443';
+                if (ip) return `/${ip}-${port}`;
+                return '/?ed=2048';
+            }
+            return select.value;
+        }
+
+        function getActiveServerIp() {
+            const select = document.getElementById('selectCleanIp');
+            if (select.value === 'custom') {
+                const custom = document.getElementById('customCleanIp').value.trim();
+                return custom || document.getElementById('inputHost').value.trim();
+            }
+            return select.value;
+        }
+
+        function generateConfig() {
+            const host = document.getElementById('inputHost').value.trim() || 'vpn.duar.eu.cc';
+            const uuid = document.getElementById('inputUUID').value.trim();
+            const remark = document.getElementById('inputRemark').value.trim() || 'DUAR-VLESS';
+            const serverIp = getActiveServerIp();
+            const path = getActivePath();
+
+            document.getElementById('hostDisplay').innerText = host;
+
+            // 1. Raw VLESS URL (Matching standard format)
+            const vlessUrl = `vless://${uuid}@${serverIp}:443?path=${encodeURIComponent(path)}&security=tls&encryption=none&host=${host}&type=ws&sni=${host}#${encodeURIComponent(remark)}`;
+            document.getElementById('vlessLinkText').value = vlessUrl;
+
+            // 2. Clash YAML Snippet
+            const clashYaml = `- name: "${remark}"
+  type: vless
+  server: ${serverIp}
+  port: 443
+  uuid: ${uuid}
+  network: ws
+  tls: true
+  udp: true
+  sni: ${host}
+  client-fingerprint: randomized
+  ws-opts:
+    path: "${path}"
+    headers:
+      Host: ${host}`;
+
+            // 3. Sing-box JSON Snippet
+            const singboxJson = JSON.stringify({
+                "type": "vless",
+                "tag": remark,
+                "server": serverIp,
+                "server_port": 443,
+                "uuid": uuid,
+                "tls": {
+                    "enabled": true,
+                    "server_name": host,
+                    "insecure": false
+                },
+                "transport": {
+                    "type": "ws",
+                    "path": path,
+                    "headers": {
+                        "Host": host
+                    }
+                }
+            }, null, 2);
+
+            // Update Tab Display
+            const outputArea = document.getElementById('outputArea');
+            if (currentTab === 'vless') outputArea.value = vlessUrl;
+            else if (currentTab === 'clash') outputArea.value = clashYaml;
+            else if (currentTab === 'singbox') outputArea.value = singboxJson;
+
+            // Update QR Code
+            const qrBox = document.getElementById('qrcodeBox');
+            qrBox.innerHTML = '';
+            qrcode = new QRCode(qrBox, {
+                text: vlessUrl,
+                width: 120,
+                height: 120,
+                colorDark : "#0f172a",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.M
+            });
+
+            // Update App Buttons
+            document.getElementById('v2rayLinkBtn').href = vlessUrl;
+            document.getElementById('clashLinkBtn').href = `clash://install-config?url=${encodeURIComponent(window.location.origin + '/api/sub?host=' + host + '&uuid=' + uuid)}`;
+        }
+
+        function switchTab(tab) {
+            currentTab = tab;
+            ['vless', 'clash', 'singbox'].forEach(t => {
+                const btn = document.getElementById(`tabBtn-${t}`);
+                if (t === tab) {
+                    btn.className = "px-3 py-1 rounded-lg bg-brand-500/20 text-brand-400 border border-brand-500/30 font-medium";
+                } else {
+                    btn.className = "px-3 py-1 rounded-lg bg-dark-900 text-slate-400 hover:text-slate-200 font-medium";
+                }
+            });
+            generateConfig();
+        }
+
+        function copyToClipboard(elementId) {
+            const copyText = document.getElementById(elementId).value;
+            navigator.clipboard.writeText(copyText).then(() => {
+                showToast("Link VLESS berhasil disalin!");
+            });
+        }
+
+        function copyOutputArea() {
+            const copyText = document.getElementById('outputArea').value;
+            navigator.clipboard.writeText(copyText).then(() => {
+                showToast("Konfigurasi tersalin!");
+            });
+        }
+
+        function copySubLink() {
+            const host = document.getElementById('inputHost').value.trim() || 'vpn.duar.eu.cc';
+            const uuid = document.getElementById('inputUUID').value.trim();
+            const subUrl = `${window.location.origin}/api/sub?host=${host}&uuid=${uuid}`;
+            navigator.clipboard.writeText(subUrl).then(() => {
+                showToast("Link Subscription tersalin!");
+            });
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 2500);
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
