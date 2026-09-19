@@ -2,6 +2,8 @@
 
 Sistem VPN Serverless VLESS bertenaga **Cloudflare Workers** & Web Generator Panel yang di-deploy di **Vercel**.
 
+Author / Developer: **Rama Tukang code**
+
 ## 🌐 Live URLs
 - **Web Generator Panel:** [https://cf.duar.eu.cc](https://cf.duar.eu.cc)
 - **VLESS Server Endpoint:** `vpn.duar.eu.cc` (Port: 443 / TLS / WebSocket)
@@ -39,15 +41,5 @@ Sistem VPN Serverless VLESS bertenaga **Cloudflare Workers** & Web Generator Pan
 
 ---
 
-## 🚀 Cara Deploy Ulang
-
-### Vercel:
-```bash
-vercel --prod
-```
-
-### Cloudflare Worker:
-```bash
-cd cf-worker
-wrangler deploy
-```
+## 👨‍💻 Created by
+**Rama Tukang code**

@@ -2,7 +2,8 @@
   "name": "vless-vpn-generator",
   "version": "1.0.0",
   "private": true,
-  "description": "VLESS & VPN Account Generator for Cloudflare Worker",
+  "description": "VLESS & VPN Multi-Server Generator for Cloudflare Worker",
+  "author": "Rama Tukang code",
   "scripts": {
     "start": "npx serve public"
   }
