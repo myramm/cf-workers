@@ -1,7 +1,8 @@
 export default function handler(req, res) {
   const {
     uuid = "91ade0d4-a4c8-4dde-b2b3-1365853b70ce",
-    host = "vpn.duar.eu.cc"
+    host = "vpn.duar.eu.cc",
+    format = "all"
   } = req.query;
 
   const servers = [
@@ -50,39 +51,50 @@ export default function handler(req, res) {
     // Germany
     { name: "🇩🇪 Hetzner Online Frankfurt", path: "/de.proxyip.fxxk.dedyn.io-443", ip: "104.18.2.1" },
     { name: "🇩🇪 Contabo Munich", path: "/de1.proxyip.fxxk.dedyn.io-443", ip: "104.18.2.1" },
-    { name: "🇩🇪 OVHcloud Germany", path: "/de2.proxyip.fxxk.dedyn.io-443", ip: "104.18.2.1" },
-    { name: "🇩🇪 DigitalOcean Frankfurt", path: "/de3.proxyip.fxxk.dedyn.io-443", ip: "104.18.2.1" },
-    { name: "🇩🇪 Netcup Germany", path: "/de4.proxyip.fxxk.dedyn.io-443", ip: "104.18.2.1" },
-
-    // UK
-    { name: "🇬🇧 London Datacenter", path: "/uk.proxyip.fxxk.dedyn.io-443", ip: "104.18.2.1" },
-    { name: "🇬🇧 OVHcloud London", path: "/uk1.proxyip.fxxk.dedyn.io-443", ip: "104.18.2.1" },
-    { name: "🇬🇧 DigitalOcean London", path: "/uk2.proxyip.fxxk.dedyn.io-443", ip: "104.18.2.1" },
-    { name: "🇬🇧 Linode London", path: "/uk3.proxyip.fxxk.dedyn.io-443", ip: "104.18.2.1" },
-    { name: "🇬🇧 AWS London", path: "/uk4.proxyip.fxxk.dedyn.io-443", ip: "104.18.2.1" },
-
-    // Netherlands
-    { name: "🇳🇱 Serverius Netherlands", path: "/nl.proxyip.fxxk.dedyn.io-443", ip: "104.18.2.1" },
-    { name: "🇳🇱 WorldStream Amsterdam", path: "/nl1.proxyip.fxxk.dedyn.io-443", ip: "104.18.2.1" },
-    { name: "🇳🇱 DigitalOcean Amsterdam", path: "/nl2.proxyip.fxxk.dedyn.io-443", ip: "104.18.2.1" },
-    { name: "🇳🇱 Leaseweb Netherlands", path: "/nl3.proxyip.fxxk.dedyn.io-443", ip: "104.18.2.1" },
-    { name: "🇳🇱 Hetzner Netherlands", path: "/nl4.proxyip.fxxk.dedyn.io-443", ip: "104.18.2.1" },
-
-    // Hong Kong
-    { name: "🇭🇰 HKIX Hong Kong", path: "/hk.proxyip.fxxk.dedyn.io-443", ip: "104.18.2.1" },
-    { name: "🇭🇰 Alibaba Cloud Hong Kong", path: "/hk1.proxyip.fxxk.dedyn.io-443", ip: "104.18.2.1" },
-    { name: "🇭🇰 Tencent Cloud Hong Kong", path: "/hk2.proxyip.fxxk.dedyn.io-443", ip: "104.18.2.1" },
-    { name: "🇭🇰 UCloud Hong Kong", path: "/hk3.proxyip.fxxk.dedyn.io-443", ip: "104.18.2.1" },
-    { name: "🇭🇰 HKT / PCCW Hong Kong", path: "/hk4.proxyip.fxxk.dedyn.io-443", ip: "104.18.2.1" }
+    { name: "🇩🇪 Netcup Germany", path: "/de4.proxyip.fxxk.dedyn.io-443", ip: "104.18.2.1" }
   ];
 
-  const configs = servers.map(srv => {
-    return `vless://${uuid}@${srv.ip}:443?path=${encodeURIComponent(srv.path)}&security=tls&encryption=none&host=${host}&type=ws&sni=${host}#${encodeURIComponent(srv.name)}`;
-  }).join("\n");
+  const configList = [];
 
-  const base64Content = Buffer.from(configs).toString("base64");
+  servers.forEach(srv => {
+    const fmt = format.toLowerCase();
+    
+    // VLESS Link
+    if (fmt === "all" || fmt === "vless") {
+      configList.push(`vless://${uuid}@${srv.ip}:443?path=${encodeURIComponent(srv.path)}&security=tls&encryption=none&host=${host}&type=ws&sni=${host}#${encodeURIComponent(srv.name + " [VLESS]")}`);
+    }
+
+    // VMess Link (Base64 JSON)
+    if (fmt === "all" || fmt === "vmess") {
+      const vmessObj = {
+        v: "2",
+        ps: `${srv.name} [VMess]`,
+        add: srv.ip,
+        port: "443",
+        id: uuid,
+        aid: "0",
+        scy: "auto",
+        net: "ws",
+        type: "none",
+        host: host,
+        path: srv.path,
+        tls: "tls",
+        sni: host,
+        alpn: ""
+      };
+      configList.push(`vmess://${Buffer.from(JSON.stringify(vmessObj)).toString("base64")}`);
+    }
+
+    // Trojan Link
+    if (fmt === "all" || fmt === "trojan") {
+      configList.push(`trojan://${uuid}@${srv.ip}:443?path=${encodeURIComponent(srv.path)}&security=tls&host=${host}&type=ws&sni=${host}#${encodeURIComponent(srv.name + " [Trojan]")}`);
+    }
+  });
+
+  const base64Content = Buffer.from(configList.join("\n")).toString("base64");
 
   res.setHeader("Content-Type", "text/plain; charset=utf-8");
   res.setHeader("Profile-Update-Interval", "24");
+  res.setHeader("Subscription-Userinfo", "upload=0; download=0; total=1073741824000; expire=0");
   res.status(200).send(base64Content);
 }

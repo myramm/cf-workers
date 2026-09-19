@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DUAR VPN - Multi Country & Provider VLESS Generator</title>
+    <title>DUAR VPN - VLESS, VMess & Trojan Multi-Country Generator</title>
     <link rel="icon" type="image/png" href="/bnr.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -54,7 +54,7 @@
                     <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-brand-400 to-indigo-400 leading-tight">
                         DUAR VPN
                     </h1>
-                    <p class="text-[11px] text-slate-400">Multi-Country & Datacenter VLESS Generator</p>
+                    <p class="text-[11px] text-slate-400">Multi-Protocol (VLESS • VMess • Trojan) Generator</p>
                 </div>
             </div>
             <div class="flex items-center gap-2">
@@ -68,7 +68,7 @@
     <!-- Main Content -->
     <main class="max-w-5xl mx-auto px-4 mt-6 space-y-6">
 
-        <!-- Top Banner / Hero with Banner Image -->
+        <!-- Top Banner / Hero -->
         <div class="glass rounded-2xl overflow-hidden glow relative border border-slate-800/80 shadow-2xl">
             <div class="w-full h-44 sm:h-52 md:h-64 relative overflow-hidden bg-dark-900">
                 <img src="/bnr.png" alt="DUAR Banner" class="w-full h-full object-cover object-center brightness-90 filter transition duration-500 hover:scale-105">
@@ -76,160 +76,136 @@
                     <div class="w-full flex flex-col sm:flex-row justify-between items-start sm:items-end gap-3">
                         <div>
                             <h2 class="text-2xl md:text-3xl font-extrabold text-white drop-shadow-md flex items-center gap-2">
-                                🚀 DUAR VLESS TUNNEL
+                                🚀 DUAR MULTI-PROTOCOL TUNNEL
                             </h2>
                             <p class="text-slate-300 text-xs sm:text-sm mt-1 drop-shadow">
-                                Multi-Country Cloudflare Anycast & Dedicated Datacenter Proxy Generator
+                                VLESS • VMess • Trojan Cloudflare Anycast & Dedicated Datacenter Proxy Generator
                             </p>
                         </div>
                         <div class="text-xs text-slate-300 bg-dark-900/90 px-3.5 py-2 rounded-xl border border-slate-700/60 backdrop-blur-md shrink-0">
-                            <span class="text-slate-400">Backend:</span> <span class="text-brand-400 font-mono font-bold" id="hostDisplay">vpn.duar.eu.cc</span>
+                            Host: <span class="font-mono text-brand-400 font-bold" id="heroHost">vpn.duar.eu.cc</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            
-            <!-- Left Form: Generator Settings -->
-            <div class="lg:col-span-6 space-y-6">
-                <div class="glass rounded-2xl p-6 space-y-5">
-                    <h3 class="text-lg font-semibold text-white flex items-center gap-2 border-b border-slate-800 pb-3">
-                        <i class="fa-solid fa-sliders text-brand-400"></i> Pengaturan Akun
+        <!-- Protocol Selection Tabs -->
+        <div class="glass p-2 rounded-2xl border border-slate-800/80 flex gap-2">
+            <button onclick="setProtocol('vless')" id="tab-vless" class="flex-1 py-3 px-4 rounded-xl font-bold text-sm transition-all duration-200 flex items-center justify-center gap-2 bg-gradient-to-r from-brand-500 to-indigo-600 text-white shadow-lg shadow-brand-500/25">
+                <i class="fa-solid fa-bolt"></i> VLESS
+            </button>
+            <button onclick="setProtocol('vmess')" id="tab-vmess" class="flex-1 py-3 px-4 rounded-xl font-bold text-sm transition-all duration-200 flex items-center justify-center gap-2 bg-dark-800/60 text-slate-400 hover:text-white hover:bg-dark-800">
+                <i class="fa-solid fa-network-wired"></i> VMESS
+            </button>
+            <button onclick="setProtocol('trojan')" id="tab-trojan" class="flex-1 py-3 px-4 rounded-xl font-bold text-sm transition-all duration-200 flex items-center justify-center gap-2 bg-dark-800/60 text-slate-400 hover:text-white hover:bg-dark-800">
+                <i class="fa-solid fa-shield-halved"></i> TROJAN
+            </button>
+        </div>
+
+        <!-- Generator Settings Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <!-- Left Form (2 cols) -->
+            <div class="md:col-span-2 glass rounded-2xl p-6 space-y-5 border border-slate-800/80 shadow-xl">
+                <div class="flex items-center justify-between border-b border-slate-800/80 pb-4">
+                    <h3 class="font-bold text-base flex items-center gap-2 text-white">
+                        <i class="fa-solid fa-sliders text-brand-400"></i> Konfigurasi Akun & Server
                     </h3>
-
-                    <!-- 1. PILIH NEGARA -->
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                            <span class="w-4 h-4 rounded-full bg-brand-500 text-slate-950 font-bold flex items-center justify-center text-[10px]">1</span>
-                            Pilih Negara Server (Outbound Country)
-                        </label>
-                        <select id="selectCountry" onchange="handleCountryChange()" class="w-full bg-dark-900 border border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-brand-400 font-semibold focus:outline-none focus:border-brand-500">
-                            <option value="id" selected>🇮🇩 Indonesia (5 Provider)</option>
-                            <option value="sg">🇸🇬 Singapura (5 Provider)</option>
-                            <option value="fr">🇫🇷 Prancis / France (5 Provider)</option>
-                            <option value="bg">🇧🇬 Bulgaria (5 Provider)</option>
-                            <option value="us">🇺🇸 Amerika Serikat / USA (5 Provider)</option>
-                            <option value="jp">🇯🇵 Jepang / Japan (5 Provider)</option>
-                            <option value="de">🇩🇪 Jerman / Germany (5 Provider)</option>
-                            <option value="uk">🇬🇧 Inggris / United Kingdom (5 Provider)</option>
-                            <option value="nl">🇳🇱 Belanda / Netherlands (5 Provider)</option>
-                            <option value="hk">🇭🇰 Hong Kong (5 Provider)</option>
-                            <option value="custom">🛠️ Kustom Proxy IP Sendiri</option>
-                        </select>
-                    </div>
-
-                    <!-- 2. PILIH PROVIDER / DATACENTER (Dinamis sesuai negara) -->
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                            <span class="w-4 h-4 rounded-full bg-brand-500 text-slate-950 font-bold flex items-center justify-center text-[10px]">2</span>
-                            Pilih Provider / Datacenter Server
-                        </label>
-                        <select id="selectProvider" onchange="handleProviderChange()" class="w-full bg-dark-900 border border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-brand-500">
-                            <!-- Populated dynamically by JS -->
-                        </select>
-                        <div id="customProxyBox" class="hidden mt-2 flex gap-2">
-                            <input type="text" id="customProxyIp" placeholder="IP: 103.84.207.2" class="flex-1 bg-dark-900 border border-slate-700/80 rounded-xl px-3 py-2 text-xs text-slate-200 font-mono focus:outline-none focus:border-brand-500">
-                            <input type="number" id="customProxyPort" placeholder="Port: 443" value="443" class="w-24 bg-dark-900 border border-slate-700/80 rounded-xl px-3 py-2 text-xs text-slate-200 font-mono focus:outline-none focus:border-brand-500">
-                        </div>
-                    </div>
-
-                    <!-- 3. PILIH OPERATOR JALUR HP (Clean IP Inbound) -->
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                            <span class="w-4 h-4 rounded-full bg-brand-500 text-slate-950 font-bold flex items-center justify-center text-[10px]">3</span>
-                            Pilih Jalur Operator Internet Anda (Clean IP)
-                        </label>
-                        <select id="selectCleanIp" onchange="handleCleanIpChange()" class="w-full bg-dark-900 border border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-brand-500">
-                            <option value="104.18.2.1">🔴 Telkomsel / By.U (104.18.2.1)</option>
-                            <option value="172.67.73.1">🔴 Indihome Fiber Telkom (172.67.73.1)</option>
-                            <option value="104.16.85.1">🔵 XL Axiata / Axis (104.16.85.1)</option>
-                            <option value="104.22.4.1">🟡 Indosat Ooredoo IM3 / Tri (104.22.4.1)</option>
-                            <option value="104.20.10.1">🟣 Smartfren 4G/5G (104.20.10.1)</option>
-                            <option value="104.16.0.1">🟢 Biznet Home / FirstMedia (104.16.0.1)</option>
-                            <option value="104.17.3.81">⚡ Cloudflare Global CDN (104.17.3.81)</option>
-                            <option value="vpn.duar.eu.cc">🌐 Domain Asli (vpn.duar.eu.cc)</option>
-                            <option value="custom">🛠️ Masukkan Custom Clean IP...</option>
-                        </select>
-                        <input type="text" id="customCleanIp" placeholder="Contoh: 104.16.0.1" class="hidden mt-2 w-full bg-dark-900 border border-slate-700/80 rounded-xl px-4 py-2 text-sm text-slate-200 font-mono focus:outline-none focus:border-brand-500">
-                    </div>
-
-                    <!-- Host / SNI -->
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Host / SNI Server</label>
-                        <input type="text" id="inputHost" value="vpn.duar.eu.cc" class="w-full bg-dark-900 border border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-brand-400 font-mono focus:outline-none focus:border-brand-500">
-                    </div>
-
-                    <!-- UUID -->
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 flex justify-between">
-                            <span>User UUID</span>
-                            <button onclick="generateUUID()" class="text-brand-400 hover:text-brand-300 normal-case flex items-center gap-1">
-                                <i class="fa-solid fa-arrows-rotate"></i> Acak UUID
-                            </button>
-                        </label>
-                        <input type="text" id="inputUUID" value="91ade0d4-a4c8-4dde-b2b3-1365853b70ce" class="w-full bg-dark-900 border border-slate-700/80 rounded-xl px-4 py-2.5 text-xs text-slate-300 font-mono focus:outline-none focus:border-brand-500">
-                    </div>
-
-                    <!-- Remark / Label -->
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Nama Profil (Remark)</label>
-                        <input type="text" id="inputRemark" value="DUAR-Telkom Indonesia 🇮🇩" class="w-full bg-dark-900 border border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-brand-500">
-                    </div>
-
-                    <button onclick="generateConfig()" class="w-full py-3 px-4 bg-gradient-to-r from-brand-500 to-indigo-600 hover:from-brand-600 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg shadow-brand-500/25 transition flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-bolt"></i> Generate Akun VLESS
-                    </button>
+                    <span id="protocolBadge" class="text-xs font-mono font-bold px-2.5 py-1 rounded-md bg-brand-500/20 text-brand-400 border border-brand-500/30 uppercase">
+                        VLESS TLS (443)
+                    </span>
                 </div>
-            </div>
 
-            <!-- Right Form: Output & Export -->
-            <div class="lg:col-span-6 space-y-6">
-                <div class="glass rounded-2xl p-6 space-y-5">
-                    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-                        <h3 class="text-lg font-semibold text-white flex items-center gap-2">
-                            <i class="fa-solid fa-qrcode text-brand-400"></i> Hasil Konfigurasi
-                        </h3>
-                        <div class="flex gap-2 text-xs">
-                            <button onclick="switchTab('vless')" id="tabBtn-vless" class="px-3 py-1 rounded-lg bg-brand-500/20 text-brand-400 border border-brand-500/30 font-medium">VLESS URL</button>
-                            <button onclick="switchTab('clash')" id="tabBtn-clash" class="px-3 py-1 rounded-lg bg-dark-900 text-slate-400 hover:text-slate-200 font-medium">Clash</button>
-                            <button onclick="switchTab('singbox')" id="tabBtn-singbox" class="px-3 py-1 rounded-lg bg-dark-900 text-slate-400 hover:text-slate-200 font-medium">Sing-box</button>
-                        </div>
+                <!-- Country & Datacenter Provider Selectors -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">Pilih Negara</label>
+                        <select id="countrySelect" class="w-full bg-dark-900 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-brand-500 transition">
+                            <!-- Populated by JS -->
+                        </select>
                     </div>
-
-                    <!-- QR Code & Link Output -->
-                    <div class="flex flex-col sm:flex-row gap-5 items-center">
-                        <div id="qrcodeBox" class="bg-white p-3 rounded-xl shadow-md shrink-0 flex items-center justify-center w-36 h-36"></div>
-                        <div class="w-full space-y-2">
-                            <p class="text-xs text-slate-400">Scan QR Code dengan <b>v2rayNG</b> atau salin link di bawah ini:</p>
-                            <div class="flex gap-2">
-                                <button onclick="copyToClipboard('vlessLinkText')" class="flex-1 py-2 px-3 bg-brand-500 hover:bg-brand-600 text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition">
-                                    <i class="fa-regular fa-copy"></i> Salin Link VLESS
-                                </button>
-                                <button onclick="copySubLink()" class="py-2 px-3 bg-dark-900 hover:bg-slate-800 border border-slate-700 text-slate-200 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition">
-                                    <i class="fa-solid fa-link"></i> Salin Sub URL
-                                </button>
-                            </div>
-                        </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">Pilih Datacenter / Provider (5+ tiap negara)</label>
+                        <select id="providerSelect" class="w-full bg-dark-900 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-brand-500 transition">
+                            <!-- Populated by JS -->
+                        </select>
                     </div>
+                </div>
 
-                    <!-- Code Area -->
+                <!-- Custom Parameters -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-1">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">Clean IP / Domain</label>
+                        <input type="text" id="cleanIpInput" class="w-full bg-dark-900 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-sm font-mono text-slate-100 focus:outline-none focus:border-brand-500 transition" value="104.16.0.1">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">Port Mode</label>
+                        <select id="portSelect" class="w-full bg-dark-900 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-brand-500 transition">
+                            <option value="443" selected>443 (TLS Enabled)</option>
+                            <option value="80">80 (Non-TLS / HTTP)</option>
+                            <option value="8443">8443 (TLS)</option>
+                            <option value="2053">2053 (TLS)</option>
+                            <option value="2083">2083 (TLS)</option>
+                            <option value="2087">2087 (TLS)</option>
+                            <option value="2096">2096 (TLS)</option>
+                            <option value="8080">8080 (Non-TLS)</option>
+                            <option value="8880">8880 (Non-TLS)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">SNI / ServerName</label>
+                        <input type="text" id="sniInput" class="w-full bg-dark-900 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-sm font-mono text-slate-100 focus:outline-none focus:border-brand-500 transition" value="vpn.duar.eu.cc">
+                    </div>
+                </div>
+
+                <!-- Result Box -->
+                <div class="space-y-2 pt-2">
+                    <div class="flex items-center justify-between">
+                        <label class="block text-xs font-bold text-slate-300">Generated Link / URI</label>
+                        <span id="configNameBadge" class="text-xs font-medium text-slate-400"></span>
+                    </div>
                     <div class="relative">
-                        <textarea id="outputArea" readonly class="w-full h-36 bg-dark-900 border border-slate-800 rounded-xl p-3 text-xs font-mono text-slate-300 resize-none focus:outline-none"></textarea>
-                        <button onclick="copyOutputArea()" class="absolute right-3 top-3 text-xs bg-slate-800/80 hover:bg-slate-700 text-slate-300 px-2.5 py-1 rounded-md border border-slate-700">
-                            <i class="fa-regular fa-copy"></i> Copy
+                        <textarea id="outputUri" rows="3" readonly class="w-full bg-dark-900/90 border border-slate-700/80 rounded-xl p-3 text-xs font-mono text-brand-300 focus:outline-none resize-none leading-relaxed selection:bg-brand-500/30"></textarea>
+                    </div>
+                    <div class="flex flex-wrap gap-2 pt-1">
+                        <button onclick="copyLink()" class="flex-1 bg-gradient-to-r from-brand-500 to-indigo-600 hover:from-brand-600 hover:to-indigo-700 text-white font-bold py-2.5 px-4 rounded-xl text-xs transition shadow-lg shadow-brand-500/20 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-copy"></i> Salin Link Konfigurasi
+                        </button>
+                        <button onclick="copyClashMeta()" class="bg-dark-900 hover:bg-dark-800 border border-slate-700 text-slate-200 font-semibold py-2.5 px-3.5 rounded-xl text-xs transition flex items-center gap-2">
+                            <i class="fa-solid fa-code"></i> Salin Clash Meta YAML
                         </button>
                     </div>
+                </div>
 
-                    <!-- Quick App Launch Buttons -->
-                    <div class="pt-2 border-t border-slate-800 flex gap-3 text-xs">
-                        <a id="v2rayLinkBtn" href="#" class="flex-1 py-2 text-center bg-dark-900 border border-slate-700 hover:border-brand-500 rounded-xl text-slate-300 hover:text-brand-400 transition">
-                            <i class="fa-solid fa-mobile-screen mr-1"></i> Buka di v2rayNG
-                        </a>
-                        <a id="clashLinkBtn" href="#" class="flex-1 py-2 text-center bg-dark-900 border border-slate-700 hover:border-indigo-500 rounded-xl text-slate-300 hover:text-indigo-400 transition">
-                            <i class="fa-solid fa-cat mr-1"></i> Buka di Clash
-                        </a>
+            </div>
+
+            <!-- Right QR & Sub Panel (1 col) -->
+            <div class="glass rounded-2xl p-6 space-y-5 border border-slate-800/80 shadow-xl flex flex-col justify-between">
+                <div>
+                    <h3 class="font-bold text-base flex items-center gap-2 text-white border-b border-slate-800/80 pb-4">
+                        <i class="fa-solid fa-qrcode text-brand-400"></i> Scan QR Code
+                    </h3>
+                    <div class="mt-4 flex flex-col items-center justify-center p-4 bg-white rounded-2xl shadow-inner w-full max-w-[200px] mx-auto aspect-square">
+                        <div id="qrcode" class="w-full h-full flex items-center justify-center"></div>
+                    </div>
+                    <p class="text-[11px] text-center text-slate-400 mt-3">Scan menggunakan v2rayNG, Clash, Sing-box, atau Shadowrocket</p>
+                </div>
+
+                <!-- Subscription URLs -->
+                <div class="border-t border-slate-800/80 pt-4 space-y-2">
+                    <label class="block text-xs font-bold text-slate-300">Subscription URL</label>
+                    <div class="flex gap-2">
+                        <input type="text" id="subUrlInput" readonly class="w-full bg-dark-900 border border-slate-700/80 rounded-xl px-3 py-2 text-[11px] font-mono text-slate-300 focus:outline-none">
+                        <button onclick="copySubUrl()" class="bg-dark-800 hover:bg-dark-700 border border-slate-700 text-slate-200 p-2.5 rounded-xl text-xs transition shrink-0" title="Salin Subscription URL">
+                            <i class="fa-solid fa-copy"></i>
+                        </button>
+                    </div>
+                    <div class="flex flex-wrap gap-1.5 pt-1">
+                        <a id="subVlessLink" href="/api/sub?format=vless" target="_blank" class="text-[10px] px-2 py-1 rounded-md bg-dark-800 border border-slate-700 text-brand-400 hover:underline">Sub VLESS</a>
+                        <a id="subVmessLink" href="/api/sub?format=vmess" target="_blank" class="text-[10px] px-2 py-1 rounded-md bg-dark-800 border border-slate-700 text-amber-400 hover:underline">Sub VMess</a>
+                        <a id="subTrojanLink" href="/api/sub?format=trojan" target="_blank" class="text-[10px] px-2 py-1 rounded-md bg-dark-800 border border-slate-700 text-indigo-400 hover:underline">Sub Trojan</a>
+                        <a id="subAllLink" href="/api/sub?format=all" target="_blank" class="text-[10px] px-2 py-1 rounded-md bg-dark-800 border border-slate-700 text-emerald-400 hover:underline">Sub All (Multi)</a>
                     </div>
                 </div>
             </div>
@@ -248,297 +224,283 @@
     </main>
 
     <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-5 right-5 bg-brand-500 text-white px-4 py-2.5 rounded-xl shadow-lg text-xs font-semibold transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2">
+    <div id="toast" class="fixed bottom-5 right-5 bg-brand-500 text-white px-4 py-2.5 rounded-xl shadow-lg text-xs font-semibold transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2 z-50">
         <i class="fa-solid fa-circle-check"></i> <span id="toastMsg">Tersalin ke clipboard!</span>
     </div>
 
-    <!-- Hidden Input for Copy -->
-    <input type="hidden" id="vlessLinkText">
-
     <script>
-        let currentTab = 'vless';
+        const DEFAULT_UUID = "91ade0d4-a4c8-4dde-b2b3-1365853b70ce";
+        const DEFAULT_HOST = "vpn.duar.eu.cc";
+
+        let currentProtocol = 'vless'; // 'vless', 'vmess', 'trojan'
         let qrcode = null;
 
-        // Data Provider Lengkap Minimal 5 Pilihan Per Negara
-        const countryProviders = {
-            id: [
-                { name: "🏢 Telkom Indonesia (Jakarta - 103.84.207.2)", path: "/103.84.207.2-443", tag: "DUAR-Telkom 🇮🇩" },
-                { name: "🏢 Biznet Data Center (Jakarta - 103.186.0.4)", path: "/103.186.0.4-443", tag: "DUAR-Biznet 🇮🇩" },
-                { name: "🏢 IDCloudHost (Jakarta - 103.175.216.14)", path: "/103.175.216.14-443", tag: "DUAR-IDCloudHost 🇮🇩" },
-                { name: "🏢 Cyber Data Center IDC (Jakarta - 103.147.154.2)", path: "/103.147.154.2-443", tag: "DUAR-Cyber IDC 🇮🇩" },
-                { name: "🏢 Indosat Ooredoo / Matrix Network", path: "/id.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Indosat 🇮🇩" }
-            ],
-            sg: [
-                { name: "⚡ Cloudflare Fast Anycast SG", path: "/?ed=2048", tag: "DUAR-SG Fast 🇸🇬" },
-                { name: "🏢 DigitalOcean Singapore", path: "/sg.proxyip.fxxk.dedyn.io-443", tag: "DUAR-DO SG 🇸🇬" },
-                { name: "🏢 AWS Amazon Singapore", path: "/sg1.proxyip.fxxk.dedyn.io-443", tag: "DUAR-AWS SG 🇸🇬" },
-                { name: "🏢 Linode / Akamai Singapore", path: "/sg2.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Linode SG 🇸🇬" },
-                { name: "🏢 OVHcloud Singapore", path: "/sg3.proxyip.fxxk.dedyn.io-443", tag: "DUAR-OVH SG 🇸🇬" }
-            ],
-            fr: [
-                { name: "🏢 AEZA GROUP LLC (109.120.134.91:2053)", path: "/109.120.134.91-2053", tag: "NDESAH-AEZA 🇫🇷" },
-                { name: "🏢 OVHcloud France (Gravelines)", path: "/fr.proxyip.fxxk.dedyn.io-443", tag: "DUAR-OVH 🇫🇷" },
-                { name: "🏢 Scaleway Paris", path: "/fr1.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Scaleway 🇫🇷" },
-                { name: "🏢 Online S.A.S Datacenter", path: "/fr2.proxyip.fxxk.dedyn.io-443", tag: "DUAR-OnlineSAS 🇫🇷" },
-                { name: "🏢 PulseHeberg France", path: "/fr3.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Pulse 🇫🇷" }
-            ],
-            bg: [
-                { name: "🏢 Belcloud LTD (185.148.146.9:443)", path: "/185.148.146.9-443", tag: "Rastore-Belcloud 🇧🇬" },
-                { name: "🏢 Telepoint Sofia Datacenter", path: "/bg.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Telepoint 🇧🇬" },
-                { name: "🏢 Neterra Cloud Bulgaria", path: "/bg1.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Neterra 🇧🇬" },
-                { name: "🏢 Delta.BG Sofia", path: "/bg2.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Delta 🇧🇬" },
-                { name: "🏢 CooliceHost Bulgaria", path: "/bg3.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Coolice 🇧🇬" }
-            ],
-            us: [
-                { name: "🏢 Cloudflare US Anycast", path: "/us.proxyip.fxxk.dedyn.io-443", tag: "DUAR-US Anycast 🇺🇸" },
-                { name: "🏢 Hurricane Electric San Jose", path: "/us1.proxyip.fxxk.dedyn.io-443", tag: "DUAR-HE SanJose 🇺🇸" },
-                { name: "🏢 DigitalOcean New York", path: "/us2.proxyip.fxxk.dedyn.io-443", tag: "DUAR-DO NewYork 🇺🇸" },
-                { name: "🏢 Oracle Cloud Ashburn", path: "/us3.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Oracle US 🇺🇸" },
-                { name: "🏢 Google Cloud Los Angeles", path: "/us4.proxyip.fxxk.dedyn.io-443", tag: "DUAR-GCloud LA 🇺🇸" }
-            ],
-            jp: [
-                { name: "🏢 Tokyo Datacenter", path: "/jp.proxyip.fxxk.dedyn.io-443", tag: "DUAR-JP Tokyo 🇯🇵" },
-                { name: "🏢 Sakura Internet Osaka", path: "/jp1.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Sakura JP 🇯🇵" },
-                { name: "🏢 Linode / Akamai Tokyo", path: "/jp2.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Linode JP 🇯🇵" },
-                { name: "🏢 Oracle Cloud Tokyo", path: "/jp3.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Oracle JP 🇯🇵" },
-                { name: "🏢 AWS Japan Tokyo", path: "/jp4.proxyip.fxxk.dedyn.io-443", tag: "DUAR-AWS Tokyo 🇯🇵" }
-            ],
-            de: [
-                { name: "🏢 Hetzner Online Frankfurt", path: "/de.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Hetzner 🇩🇪" },
-                { name: "🏢 Contabo Datacenter Munich", path: "/de1.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Contabo 🇩🇪" },
-                { name: "🏢 OVHcloud Germany", path: "/de2.proxyip.fxxk.dedyn.io-443", tag: "DUAR-OVH DE 🇩🇪" },
-                { name: "🏢 DigitalOcean Frankfurt", path: "/de3.proxyip.fxxk.dedyn.io-443", tag: "DUAR-DO Frankfurt 🇩🇪" },
-                { name: "🏢 Netcup Germany", path: "/de4.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Netcup 🇩🇪" }
-            ],
-            uk: [
-                { name: "🏢 London Telehouse Datacenter", path: "/uk.proxyip.fxxk.dedyn.io-443", tag: "DUAR-London 🇬🇧" },
-                { name: "🏢 OVHcloud London", path: "/uk1.proxyip.fxxk.dedyn.io-443", tag: "DUAR-OVH UK 🇬🇧" },
-                { name: "🏢 DigitalOcean London", path: "/uk2.proxyip.fxxk.dedyn.io-443", tag: "DUAR-DO London 🇬🇧" },
-                { name: "🏢 Linode London", path: "/uk3.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Linode UK 🇬🇧" },
-                { name: "🏢 AWS Amazon London", path: "/uk4.proxyip.fxxk.dedyn.io-443", tag: "DUAR-AWS London 🇬🇧" }
-            ],
-            nl: [
-                { name: "🏢 Serverius Netherlands", path: "/nl.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Serverius 🇳🇱" },
-                { name: "🏢 WorldStream Amsterdam", path: "/nl1.proxyip.fxxk.dedyn.io-443", tag: "DUAR-WorldStream 🇳🇱" },
-                { name: "🏢 DigitalOcean Amsterdam", path: "/nl2.proxyip.fxxk.dedyn.io-443", tag: "DUAR-DO Amsterdam 🇳🇱" },
-                { name: "🏢 Leaseweb Netherlands", path: "/nl3.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Leaseweb 🇳🇱" },
-                { name: "🏢 Hetzner Netherlands", path: "/nl4.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Hetzner NL 🇳🇱" }
-            ],
-            hk: [
-                { name: "🏢 HKIX Hong Kong Exchange", path: "/hk.proxyip.fxxk.dedyn.io-443", tag: "DUAR-HKIX 🇭🇰" },
-                { name: "🏢 Alibaba Cloud Hong Kong", path: "/hk1.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Alibaba HK 🇭🇰" },
-                { name: "🏢 Tencent Cloud Hong Kong", path: "/hk2.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Tencent HK 🇭🇰" },
-                { name: "🏢 UCloud Hong Kong", path: "/hk3.proxyip.fxxk.dedyn.io-443", tag: "DUAR-UCloud HK 🇭🇰" },
-                { name: "🏢 HKT / PCCW Global Hong Kong", path: "/hk4.proxyip.fxxk.dedyn.io-443", tag: "DUAR-PCCW HK 🇭🇰" }
-            ]
-        };
+        const dataCountries = [
+            {
+                code: "ID",
+                name: "🇮🇩 Indonesia",
+                providers: [
+                    { name: "Telkom Indonesia (Jakarta)", path: "/103.84.207.2-443", ip: "180.250.247.1" },
+                    { name: "Biznet Data Center (Jakarta)", path: "/103.186.0.4-443", ip: "103.111.200.1" },
+                    { name: "IDCloudHost Jakarta", path: "/103.175.216.14-443", ip: "103.145.226.1" },
+                    { name: "Cyber Data Center IDC", path: "/103.147.154.2-443", ip: "103.28.14.1" },
+                    { name: "Indosat Ooredoo / Matrix", path: "/id.proxyip.fxxk.dedyn.io-443", ip: "202.155.0.1" }
+                ]
+            },
+            {
+                code: "SG",
+                name: "🇸🇬 Singapura",
+                providers: [
+                    { name: "Cloudflare Fast Anycast SG", path: "/?ed=2048", ip: "104.16.0.1" },
+                    { name: "Singtel Singapore Backbone", path: "/sg.proxyip.fxxk.dedyn.io-443", ip: "165.21.0.1" },
+                    { name: "StarHub Singapore", path: "/sg1.proxyip.fxxk.dedyn.io-443", ip: "203.116.1.1" },
+                    { name: "DigitalOcean Singapore", path: "/sg2.proxyip.fxxk.dedyn.io-443", ip: "104.18.2.1" },
+                    { name: "Linode / Akamai SG", path: "/sg3.proxyip.fxxk.dedyn.io-443", ip: "104.17.3.81" }
+                ]
+            },
+            {
+                code: "FR",
+                name: "🇫🇷 Prancis",
+                providers: [
+                    { name: "AEZA Group LLC Paris", path: "/109.120.134.91-2053", ip: "77.91.100.1" },
+                    { name: "OVHcloud France", path: "/fr.proxyip.fxxk.dedyn.io-443", ip: "198.27.64.1" },
+                    { name: "Scaleway Paris", path: "/fr1.proxyip.fxxk.dedyn.io-443", ip: "104.17.3.81" },
+                    { name: "Online S.A.S Paris", path: "/fr2.proxyip.fxxk.dedyn.io-443", ip: "104.18.2.1" },
+                    { name: "PulseHeberg France", path: "/fr3.proxyip.fxxk.dedyn.io-443", ip: "104.16.0.1" }
+                ]
+            },
+            {
+                code: "BG",
+                name: "🇧🇬 Bulgaria",
+                providers: [
+                    { name: "Belcloud LTD Sofia", path: "/185.148.146.9-443", ip: "185.196.100.1" },
+                    { name: "Vivacom Bulgaria", path: "/bg.proxyip.fxxk.dedyn.io-443", ip: "212.39.88.1" },
+                    { name: "Telepoint Datacenter", path: "/bg1.proxyip.fxxk.dedyn.io-443", ip: "104.17.3.81" },
+                    { name: "Neterra Cloud Bulgaria", path: "/bg2.proxyip.fxxk.dedyn.io-443", ip: "104.18.2.1" },
+                    { name: "CooliceHost Bulgaria", path: "/bg3.proxyip.fxxk.dedyn.io-443", ip: "104.16.0.1" }
+                ]
+            },
+            {
+                code: "US",
+                name: "🇺🇸 Amerika Serikat",
+                providers: [
+                    { name: "Cloudflare US Anycast", path: "/us.proxyip.fxxk.dedyn.io-443", ip: "104.21.0.1" },
+                    { name: "Hurricane Electric San Jose", path: "/us1.proxyip.fxxk.dedyn.io-443", ip: "104.18.2.1" },
+                    { name: "DigitalOcean New York", path: "/us2.proxyip.fxxk.dedyn.io-443", ip: "104.16.0.1" },
+                    { name: "Oracle Cloud Ashburn", path: "/us3.proxyip.fxxk.dedyn.io-443", ip: "104.17.3.81" },
+                    { name: "Google Cloud Los Angeles", path: "/us4.proxyip.fxxk.dedyn.io-443", ip: "198.41.0.4" }
+                ]
+            },
+            {
+                code: "JP",
+                name: "🇯🇵 Jepang",
+                providers: [
+                    { name: "Tokyo Datacenter JP", path: "/jp.proxyip.fxxk.dedyn.io-443", ip: "104.28.0.1" },
+                    { name: "Sakura Internet Osaka", path: "/jp1.proxyip.fxxk.dedyn.io-443", ip: "133.242.0.1" },
+                    { name: "Linode Tokyo", path: "/jp2.proxyip.fxxk.dedyn.io-443", ip: "104.18.2.1" },
+                    { name: "Oracle Cloud Tokyo", path: "/jp3.proxyip.fxxk.dedyn.io-443", ip: "104.17.3.81" },
+                    { name: "AWS Japan Tokyo", path: "/jp4.proxyip.fxxk.dedyn.io-443", ip: "104.16.0.1" }
+                ]
+            },
+            {
+                code: "DE",
+                name: "🇩🇪 Jerman",
+                providers: [
+                    { name: "Frankfurt Datacenter", path: "/de.proxyip.fxxk.dedyn.io-443", ip: "185.220.101.1" },
+                    { name: "Hetzner Online Frankfurt", path: "/de1.proxyip.fxxk.dedyn.io-443", ip: "104.18.2.1" },
+                    { name: "Contabo Munich", path: "/de2.proxyip.fxxk.dedyn.io-443", ip: "104.16.0.1" },
+                    { name: "DigitalOcean Frankfurt", path: "/de3.proxyip.fxxk.dedyn.io-443", ip: "104.17.3.81" },
+                    { name: "Netcup Germany", path: "/de4.proxyip.fxxk.dedyn.io-443", ip: "104.24.0.1" }
+                ]
+            }
+        ];
 
-        function init() {
-            handleCountryChange(false);
-            generateConfig();
+        function initApp() {
+            const countrySelect = document.getElementById("countrySelect");
+            countrySelect.innerHTML = "";
+            dataCountries.forEach((c, idx) => {
+                const opt = document.createElement("option");
+                opt.value = idx;
+                opt.textContent = c.name;
+                countrySelect.appendChild(opt);
+            });
+
+            countrySelect.addEventListener("change", populateProviders);
+            document.getElementById("providerSelect").addEventListener("change", onProviderChange);
+            document.getElementById("cleanIpInput").addEventListener("input", generateConfig);
+            document.getElementById("portSelect").addEventListener("change", generateConfig);
+            document.getElementById("sniInput").addEventListener("input", generateConfig);
+
+            populateProviders();
+            updateSubLinks();
         }
 
-        function generateUUID(triggerGenerate = true) {
-            const uuid = ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-                (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-            );
-            document.getElementById('inputUUID').value = uuid;
-            if (triggerGenerate) generateConfig();
-        }
-
-        function handleCountryChange(triggerGenerate = true) {
-            const country = document.getElementById('selectCountry').value;
-            const providerSelect = document.getElementById('selectProvider');
-            const customBox = document.getElementById('customProxyBox');
-            
-            providerSelect.innerHTML = '';
-
-            if (country === 'custom') {
-                providerSelect.classList.add('hidden');
-                customBox.classList.remove('hidden');
-                document.getElementById('inputRemark').value = 'DUAR-Custom';
-            } else {
-                providerSelect.classList.remove('hidden');
-                customBox.classList.add('hidden');
-
-                const providers = countryProviders[country] || [];
-                providers.forEach((prov, idx) => {
-                    const opt = document.createElement('option');
-                    opt.value = prov.path;
-                    opt.text = prov.name;
-                    opt.setAttribute('data-name', prov.tag);
-                    if (idx === 0) opt.selected = true;
-                    providerSelect.appendChild(opt);
-                });
-
-                if (providers.length > 0) {
-                    document.getElementById('inputRemark').value = providers[0].tag;
+        function setProtocol(proto) {
+            currentProtocol = proto;
+            ['vless', 'vmess', 'trojan'].forEach(p => {
+                const btn = document.getElementById(`tab-${p}`);
+                if (p === proto) {
+                    btn.className = "flex-1 py-3 px-4 rounded-xl font-bold text-sm transition-all duration-200 flex items-center justify-center gap-2 bg-gradient-to-r from-brand-500 to-indigo-600 text-white shadow-lg shadow-brand-500/25";
+                } else {
+                    btn.className = "flex-1 py-3 px-4 rounded-xl font-bold text-sm transition-all duration-200 flex items-center justify-center gap-2 bg-dark-800/60 text-slate-400 hover:text-white hover:bg-dark-800";
                 }
-            }
+            });
 
-            if (triggerGenerate) generateConfig();
-        }
-
-        function handleProviderChange() {
-            const providerSelect = document.getElementById('selectProvider');
-            const selectedOption = providerSelect.options[providerSelect.selectedIndex];
-            if (selectedOption) {
-                document.getElementById('inputRemark').value = selectedOption.getAttribute('data-name');
-            }
             generateConfig();
         }
 
-        function handleCleanIpChange() {
-            const select = document.getElementById('selectCleanIp');
-            const customInput = document.getElementById('customCleanIp');
-            if (select.value === 'custom') {
-                customInput.classList.remove('hidden');
-            } else {
-                customInput.classList.add('hidden');
-            }
+        function populateProviders() {
+            const countryIdx = document.getElementById("countrySelect").value;
+            const providers = dataCountries[countryIdx].providers;
+            const providerSelect = document.getElementById("providerSelect");
+            providerSelect.innerHTML = "";
+
+            providers.forEach((p, idx) => {
+                const opt = document.createElement("option");
+                opt.value = idx;
+                opt.textContent = p.name;
+                providerSelect.appendChild(opt);
+            });
+
+            onProviderChange();
+        }
+
+        function onProviderChange() {
+            const countryIdx = document.getElementById("countrySelect").value;
+            const providerIdx = document.getElementById("providerSelect").value;
+            const provider = dataCountries[countryIdx].providers[providerIdx];
+
+            document.getElementById("cleanIpInput").value = provider.ip;
             generateConfig();
-        }
-
-        function getActivePath() {
-            const country = document.getElementById('selectCountry').value;
-            if (country === 'custom') {
-                const ip = document.getElementById('customProxyIp').value.trim();
-                const port = document.getElementById('customProxyPort').value.trim() || '443';
-                if (ip) return `/${ip}-${port}`;
-                return '/?ed=2048';
-            }
-            const providerSelect = document.getElementById('selectProvider');
-            return providerSelect.value || '/?ed=2048';
-        }
-
-        function getActiveServerIp() {
-            const select = document.getElementById('selectCleanIp');
-            if (select.value === 'custom') {
-                const custom = document.getElementById('customCleanIp').value.trim();
-                return custom || document.getElementById('inputHost').value.trim();
-            }
-            return select.value;
         }
 
         function generateConfig() {
-            const host = document.getElementById('inputHost').value.trim() || 'vpn.duar.eu.cc';
-            const uuid = document.getElementById('inputUUID').value.trim();
-            const remark = document.getElementById('inputRemark').value.trim() || 'DUAR-VLESS';
-            const serverIp = getActiveServerIp();
-            const path = getActivePath();
+            const countryIdx = document.getElementById("countrySelect").value;
+            const providerIdx = document.getElementById("providerSelect").value;
+            const country = dataCountries[countryIdx];
+            const provider = country.providers[providerIdx];
 
-            document.getElementById('hostDisplay').innerText = host;
+            const cleanIP = document.getElementById("cleanIpInput").value.trim() || provider.ip;
+            const port = document.getElementById("portSelect").value;
+            const isTLS = port === "443" || port === "8443" || port === "2053" || port === "2083" || port === "2087" || port === "2096";
+            const sni = document.getElementById("sniInput").value.trim() || DEFAULT_HOST;
+            const path = provider.path || "/?ed=2048";
+            const tag = `DUAR-${country.code}-${provider.name.replace(/[^a-zA-Z0-9]/g, '')}-${isTLS ? 'TLS' : 'NTLS'}`;
 
-            // 1. Raw VLESS URL
-            const vlessUrl = `vless://${uuid}@${serverIp}:443?path=${encodeURIComponent(path)}&security=tls&encryption=none&host=${host}&type=ws&sni=${host}#${encodeURIComponent(remark)}`;
-            document.getElementById('vlessLinkText').value = vlessUrl;
+            let uri = "";
 
-            // 2. Clash YAML Snippet
-            const clashYaml = `- name: "${remark}"
-  type: vless
-  server: ${serverIp}
-  port: 443
-  uuid: ${uuid}
-  network: ws
-  tls: true
-  udp: true
-  sni: ${host}
-  client-fingerprint: randomized
-  ws-opts:
-    path: "${path}"
-    headers:
-      Host: ${host}`;
+            if (currentProtocol === "vless") {
+                const sec = isTLS ? "tls" : "none";
+                const sniParam = isTLS ? `&sni=${encodeURIComponent(sni)}` : "";
+                uri = `vless://${DEFAULT_UUID}@${cleanIP}:${port}?path=${encodeURIComponent(path)}&security=${sec}&encryption=none&host=${encodeURIComponent(sni)}&type=ws${sniParam}#${encodeURIComponent(tag)}`;
+                document.getElementById("protocolBadge").textContent = `VLESS ${isTLS ? 'TLS' : 'NON-TLS'} (${port})`;
+            } else if (currentProtocol === "vmess") {
+                const vmessData = {
+                    v: "2",
+                    ps: tag,
+                    add: cleanIP,
+                    port: port,
+                    id: DEFAULT_UUID,
+                    aid: "0",
+                    scy: "auto",
+                    net: "ws",
+                    type: "none",
+                    host: sni,
+                    path: path,
+                    tls: isTLS ? "tls" : "",
+                    sni: isTLS ? sni : "",
+                    alpn: ""
+                };
+                uri = "vmess://" + btoa(JSON.stringify(vmessData));
+                document.getElementById("protocolBadge").textContent = `VMESS ${isTLS ? 'TLS' : 'NON-TLS'} (${port})`;
+            } else if (currentProtocol === "trojan") {
+                const sec = isTLS ? "tls" : "none";
+                const sniParam = isTLS ? `&sni=${encodeURIComponent(sni)}` : "";
+                uri = `trojan://${DEFAULT_UUID}@${cleanIP}:${port}?path=${encodeURIComponent(path)}&security=${sec}&host=${encodeURIComponent(sni)}&type=ws${sniParam}#${encodeURIComponent(tag)}`;
+                document.getElementById("protocolBadge").textContent = `TROJAN ${isTLS ? 'TLS' : 'NON-TLS'} (${port})`;
+            }
 
-            // 3. Sing-box JSON Snippet
-            const singboxJson = JSON.stringify({
-                "type": "vless",
-                "tag": remark,
-                "server": serverIp,
-                "server_port": 443,
-                "uuid": uuid,
-                "tls": {
-                    "enabled": true,
-                    "server_name": host,
-                    "insecure": false
-                },
-                "transport": {
-                    "type": "ws",
-                    "path": path,
-                    "headers": {
-                        "Host": host
-                    }
-                }
-            }, null, 2);
+            document.getElementById("outputUri").value = uri;
+            document.getElementById("configNameBadge").textContent = `${country.name} • ${provider.name}`;
 
-            // Update Tab Display
-            const outputArea = document.getElementById('outputArea');
-            if (currentTab === 'vless') outputArea.value = vlessUrl;
-            else if (currentTab === 'clash') outputArea.value = clashYaml;
-            else if (currentTab === 'singbox') outputArea.value = singboxJson;
-
-            // Update QR Code
-            const qrBox = document.getElementById('qrcodeBox');
-            qrBox.innerHTML = '';
-            qrcode = new QRCode(qrBox, {
-                text: vlessUrl,
-                width: 120,
-                height: 120,
-                colorDark : "#0f172a",
-                colorLight : "#ffffff",
-                correctLevel : QRCode.CorrectLevel.M
-            });
-
-            // Update App Buttons
-            document.getElementById('v2rayLinkBtn').href = vlessUrl;
-            document.getElementById('clashLinkBtn').href = `clash://install-config?url=${encodeURIComponent(window.location.origin + '/api/sub?host=' + host + '&uuid=' + uuid)}`;
+            renderQr(uri);
         }
 
-        function switchTab(tab) {
-            currentTab = tab;
-            ['vless', 'clash', 'singbox'].forEach(t => {
-                const btn = document.getElementById(`tabBtn-${t}`);
-                if (t === tab) {
-                    btn.className = "px-3 py-1 rounded-lg bg-brand-500/20 text-brand-400 border border-brand-500/30 font-medium";
-                } else {
-                    btn.className = "px-3 py-1 rounded-lg bg-dark-900 text-slate-400 hover:text-slate-200 font-medium";
-                }
-            });
-            generateConfig();
-        }
-
-        function copyToClipboard(elementId) {
-            const copyText = document.getElementById(elementId).value;
-            navigator.clipboard.writeText(copyText).then(() => {
-                showToast("Link VLESS berhasil disalin!");
+        function renderQr(text) {
+            const qrContainer = document.getElementById("qrcode");
+            qrContainer.innerHTML = "";
+            qrcode = new QRCode(qrContainer, {
+                text: text,
+                width: 168,
+                height: 168,
+                colorDark: "#0f172a",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.M
             });
         }
 
-        function copyOutputArea() {
-            const copyText = document.getElementById('outputArea').value;
-            navigator.clipboard.writeText(copyText).then(() => {
-                showToast("Konfigurasi tersalin!");
-            });
-        }
+        function updateSubLinks() {
+            const host = window.location.origin;
+            const subInput = document.getElementById("subUrlInput");
+            subInput.value = `${host}/api/sub?format=all`;
 
-        function copySubLink() {
-            const host = document.getElementById('inputHost').value.trim() || 'vpn.duar.eu.cc';
-            const uuid = document.getElementById('inputUUID').value.trim();
-            const subUrl = `${window.location.origin}/api/sub?host=${host}&uuid=${uuid}`;
-            navigator.clipboard.writeText(subUrl).then(() => {
-                showToast("Link Subscription tersalin!");
-            });
+            document.getElementById("subVlessLink").href = `${host}/api/sub?format=vless`;
+            document.getElementById("subVmessLink").href = `${host}/api/sub?format=vmess`;
+            document.getElementById("subTrojanLink").href = `${host}/api/sub?format=trojan`;
+            document.getElementById("subAllLink").href = `${host}/api/sub?format=all`;
         }
 
         function showToast(msg) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toastMsg').innerText = msg;
-            toast.classList.remove('translate-y-20', 'opacity-0');
+            const toast = document.getElementById("toast");
+            document.getElementById("toastMsg").textContent = msg;
+            toast.classList.remove("translate-y-20", "opacity-0");
+            toast.classList.add("translate-y-0", "opacity-100");
             setTimeout(() => {
-                toast.classList.add('translate-y-20', 'opacity-0');
+                toast.classList.remove("translate-y-0", "opacity-100");
+                toast.classList.add("translate-y-20", "opacity-0");
             }, 2500);
         }
 
-        window.onload = init;
+        function copyLink() {
+            const uri = document.getElementById("outputUri").value;
+            navigator.clipboard.writeText(uri).then(() => {
+                showToast(`Link ${currentProtocol.toUpperCase()} tersalin ke clipboard!`);
+            });
+        }
+
+        function copySubUrl() {
+            const subUrl = document.getElementById("subUrlInput").value;
+            navigator.clipboard.writeText(subUrl).then(() => {
+                showToast("Subscription URL tersalin!");
+            });
+        }
+
+        function copyClashMeta() {
+            const countryIdx = document.getElementById("countrySelect").value;
+            const providerIdx = document.getElementById("providerSelect").value;
+            const provider = dataCountries[countryIdx].providers[providerIdx];
+            const cleanIP = document.getElementById("cleanIpInput").value.trim() || provider.ip;
+            const port = document.getElementById("portSelect").value;
+            const isTLS = port === "443" || port === "8443";
+            const sni = document.getElementById("sniInput").value.trim() || DEFAULT_HOST;
+            const path = provider.path || "/?ed=2048";
+            const name = `DUAR-${provider.name}`;
+
+            let yaml = "";
+            if (currentProtocol === "vless") {
+                yaml = `- name: "${name}"\n  type: vless\n  server: ${cleanIP}\n  port: ${port}\n  uuid: ${DEFAULT_UUID}\n  network: ws\n  tls: ${isTLS}\n  udp: true\n  sni: ${sni}\n  client-fingerprint: chrome\n  ws-opts:\n    path: "${path}"\n    headers:\n      Host: ${sni}`;
+            } else if (currentProtocol === "vmess") {
+                yaml = `- name: "${name}"\n  type: vmess\n  server: ${cleanIP}\n  port: ${port}\n  uuid: ${DEFAULT_UUID}\n  alterId: 0\n  cipher: auto\n  network: ws\n  tls: ${isTLS}\n  sni: ${sni}\n  ws-opts:\n    path: "${path}"\n    headers:\n      Host: ${sni}`;
+            } else if (currentProtocol === "trojan") {
+                yaml = `- name: "${name}"\n  type: trojan\n  server: ${cleanIP}\n  port: ${port}\n  password: ${DEFAULT_UUID}\n  network: ws\n  tls: ${isTLS}\n  sni: ${sni}\n  ws-opts:\n    path: "${path}"\n    headers:\n      Host: ${sni}`;
+            }
+
+            navigator.clipboard.writeText(yaml).then(() => {
+                showToast("Clash Meta YAML config tersalin!");
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", initApp);
     </script>
 </body>
 </html>
