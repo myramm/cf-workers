@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DUAR VPN - Multi Server VLESS Generator</title>
+    <title>DUAR VPN - Multi Server & Provider VLESS Generator</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -55,12 +55,12 @@
                     <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-brand-400 to-indigo-400">
                         DUAR VPN
                     </h1>
-                    <p class="text-xs text-slate-400">Multi-Country Edge VLESS Generator</p>
+                    <p class="text-xs text-slate-400">Multi-Country & Indonesian ISP VLESS Generator</p>
                 </div>
             </div>
             <div class="flex items-center gap-2">
                 <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Multi-Server Online
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Server Active
                 </span>
             </div>
         </div>
@@ -75,14 +75,14 @@
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
                     <h2 class="text-2xl font-bold text-white flex items-center gap-2">
-                        🌍 Buat Akun VLESS Multi-Negara
+                        🇮🇩 Server Indonesia & Internasional
                     </h2>
                     <p class="text-slate-400 text-sm mt-1">
-                        Pilih lokasi negara server keluar (Prancis, Bulgaria, Singapura, US, Jepang, dll) dengan Cloudflare CDN.
+                        Pilih server Telkom Indonesia, Biznet, IDCloudHost, Prancis, Bulgaria, Singapura, dll.
                     </p>
                 </div>
                 <div class="text-xs text-slate-400 bg-dark-900/80 px-4 py-2.5 rounded-xl border border-slate-700/50">
-                    <span class="text-slate-500">Domain Server:</span> <span class="text-brand-400 font-mono font-semibold" id="hostDisplay">vpn.duar.eu.cc</span>
+                    <span class="text-slate-500">Domain Backend:</span> <span class="text-brand-400 font-mono font-semibold" id="hostDisplay">vpn.duar.eu.cc</span>
                 </div>
             </div>
         </div>
@@ -93,41 +93,54 @@
             <div class="lg:col-span-6 space-y-6">
                 <div class="glass rounded-2xl p-6 space-y-5">
                     <h3 class="text-lg font-semibold text-white flex items-center gap-2 border-b border-slate-800 pb-3">
-                        <i class="fa-solid fa-sliders text-brand-400"></i> Pengaturan Server & Akun
+                        <i class="fa-solid fa-sliders text-brand-400"></i> Pengaturan Server & Provider
                     </h3>
 
                     <!-- Server Location (ProxyIP Path) -->
                     <div>
                         <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-                            📍 Lokasi Negara / Server Keluar
+                            📍 Lokasi Negara / Server Keluar (Datacenter)
                         </label>
                         <select id="selectServerLocation" onchange="handleServerChange()" class="w-full bg-dark-900 border border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-brand-400 font-semibold focus:outline-none focus:border-brand-500">
-                            <option value="/109.120.134.91-2053" data-name="NDESAH-AEZA GROUP 🇫🇷">🇫🇷 Prancis (AEZA GROUP LLC - 109.120.134.91:2053)</option>
-                            <option value="/185.148.146.9-443" data-name="Rastore-Belcloud 🇧🇬">🇧🇬 Bulgaria (Belcloud LTD - 185.148.146.9:443)</option>
-                            <option value="/?ed=2048" data-name="DUAR-SG Fast 🇸🇬" selected>🇸🇬 Singapura (Cloudflare Fast Anycast)</option>
-                            <option value="/us.proxyip.fxxk.dedyn.io-443" data-name="DUAR-US 🇺🇸">🇺🇸 Amerika Serikat (US Outbound)</option>
-                            <option value="/jp.proxyip.fxxk.dedyn.io-443" data-name="DUAR-JP 🇯🇵">🇯🇵 Jepang (Tokyo Outbound)</option>
-                            <option value="/de.proxyip.fxxk.dedyn.io-443" data-name="DUAR-DE 🇩🇪">🇩🇪 Jerman (Frankfurt Outbound)</option>
-                            <option value="/uk.proxyip.fxxk.dedyn.io-443" data-name="DUAR-UK 🇬🇧">🇬🇧 Inggris (London Outbound)</option>
-                            <option value="custom" data-name="DUAR-Custom">🛠️ Custom Proxy IP & Port...</option>
+                            <optgroup label="🇮🇩 Server Indonesia">
+                                <option value="/103.84.207.2-443" data-name="DUAR-Telkom Indonesia 🇮🇩" selected>🇮🇩 Indonesia - Telkom Indonesia (Jakarta - 103.84.207.2)</option>
+                                <option value="/103.186.0.4-443" data-name="DUAR-Biznet Data Center 🇮🇩">🇮🇩 Indonesia - Biznet Data Center (Jakarta - 103.186.0.4)</option>
+                                <option value="/103.175.216.14-443" data-name="DUAR-IDCloudHost 🇮🇩">🇮🇩 Indonesia - IDCloudHost (Jakarta - 103.175.216.14)</option>
+                                <option value="/103.147.154.2-443" data-name="DUAR-Cyber Data Center 🇮🇩">🇮🇩 Indonesia - Cyber Data Center (IDC Jakarta - 103.147.154.2)</option>
+                                <option value="/id.proxyip.fxxk.dedyn.io-443" data-name="DUAR-Indosat/Matrix 🇮🇩">🇮🇩 Indonesia - Indosat / Matrix Outbound</option>
+                            </optgroup>
+                            <optgroup label="🌍 Server Luar Negeri">
+                                <option value="/?ed=2048" data-name="DUAR-SG Fast 🇸🇬">🇸🇬 Singapura (Cloudflare Fast Anycast)</option>
+                                <option value="/109.120.134.91-2053" data-name="NDESAH-AEZA GROUP 🇫🇷">🇫🇷 Prancis (AEZA GROUP LLC - 109.120.134.91:2053)</option>
+                                <option value="/185.148.146.9-443" data-name="Rastore-Belcloud 🇧🇬">🇧🇬 Bulgaria (Belcloud LTD - 185.148.146.9:443)</option>
+                                <option value="/us.proxyip.fxxk.dedyn.io-443" data-name="DUAR-US 🇺🇸">🇺🇸 Amerika Serikat (US Outbound)</option>
+                                <option value="/jp.proxyip.fxxk.dedyn.io-443" data-name="DUAR-JP 🇯🇵">🇯🇵 Jepang (Tokyo Outbound)</option>
+                                <option value="/de.proxyip.fxxk.dedyn.io-443" data-name="DUAR-DE 🇩🇪">🇩🇪 Jerman (Frankfurt Outbound)</option>
+                                <option value="/uk.proxyip.fxxk.dedyn.io-443" data-name="DUAR-UK 🇬🇧">🇬🇧 Inggris (London Outbound)</option>
+                            </optgroup>
+                            <optgroup label="🛠️ Kustom">
+                                <option value="custom" data-name="DUAR-Custom">🛠️ Masukkan Custom Proxy IP & Port...</option>
+                            </optgroup>
                         </select>
                         <div id="customProxyBox" class="hidden mt-2 flex gap-2">
-                            <input type="text" id="customProxyIp" placeholder="IP: 109.120.134.91" class="flex-1 bg-dark-900 border border-slate-700/80 rounded-xl px-3 py-2 text-xs text-slate-200 font-mono focus:outline-none focus:border-brand-500">
-                            <input type="number" id="customProxyPort" placeholder="Port: 2053" value="443" class="w-24 bg-dark-900 border border-slate-700/80 rounded-xl px-3 py-2 text-xs text-slate-200 font-mono focus:outline-none focus:border-brand-500">
+                            <input type="text" id="customProxyIp" placeholder="IP: 103.84.207.2" class="flex-1 bg-dark-900 border border-slate-700/80 rounded-xl px-3 py-2 text-xs text-slate-200 font-mono focus:outline-none focus:border-brand-500">
+                            <input type="number" id="customProxyPort" placeholder="Port: 443" value="443" class="w-24 bg-dark-900 border border-slate-700/80 rounded-xl px-3 py-2 text-xs text-slate-200 font-mono focus:outline-none focus:border-brand-500">
                         </div>
                     </div>
 
-                    <!-- Clean IP Inbound Presets -->
+                    <!-- Clean IP Inbound Presets (Provider ISP Indonesia) -->
                     <div>
                         <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-                            ⚡ Alamat Server Inbound (Clean IP)
+                            📶 Jalur Operator Internet (Inbound Clean IP)
                         </label>
                         <select id="selectCleanIp" onchange="handleCleanIpChange()" class="w-full bg-dark-900 border border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-brand-500">
-                            <option value="104.17.3.81">⚡ Cloudflare Clean IP (104.17.3.81)</option>
-                            <option value="104.18.2.1">⚡ Telkomsel / By.U (104.18.2.1)</option>
-                            <option value="172.67.73.1">⚡ Indihome / Telkom (172.67.73.1)</option>
-                            <option value="104.21.2.1">⚡ XL / Axis (104.21.2.1)</option>
-                            <option value="162.159.138.1">⚡ Tri / Smartfren (162.159.138.1)</option>
+                            <option value="104.18.2.1">🔴 Telkomsel / By.U (104.18.2.1)</option>
+                            <option value="172.67.73.1">🔴 Indihome Fiber Telkom (172.67.73.1)</option>
+                            <option value="104.16.85.1">🔵 XL Axiata / Axis (104.16.85.1)</option>
+                            <option value="104.22.4.1">🟡 Indosat Ooredoo IM3 / Tri (104.22.4.1)</option>
+                            <option value="104.20.10.1">🟣 Smartfren 4G/5G (104.20.10.1)</option>
+                            <option value="104.16.0.1">🟢 Biznet Home / FirstMedia (104.16.0.1)</option>
+                            <option value="104.17.3.81">⚡ Cloudflare Global CDN (104.17.3.81)</option>
                             <option value="vpn.duar.eu.cc">🌐 Domain Asli (vpn.duar.eu.cc)</option>
                             <option value="custom">🛠️ Masukkan Custom Clean IP...</option>
                         </select>
@@ -154,7 +167,7 @@
                     <!-- Remark / Label -->
                     <div>
                         <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Nama Profil (Remark)</label>
-                        <input type="text" id="inputRemark" value="DUAR-SG Fast 🇸🇬" class="w-full bg-dark-900 border border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-brand-500">
+                        <input type="text" id="inputRemark" value="DUAR-Telkom Indonesia 🇮🇩" class="w-full bg-dark-900 border border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-brand-500">
                     </div>
 
                     <button onclick="generateConfig()" class="w-full py-3 px-4 bg-gradient-to-r from-brand-500 to-indigo-600 hover:from-brand-600 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg shadow-brand-500/25 transition flex items-center justify-center gap-2">
@@ -300,7 +313,7 @@
 
             document.getElementById('hostDisplay').innerText = host;
 
-            // 1. Raw VLESS URL (Matching standard format)
+            // 1. Raw VLESS URL
             const vlessUrl = `vless://${uuid}@${serverIp}:443?path=${encodeURIComponent(path)}&security=tls&encryption=none&host=${host}&type=ws&sni=${host}#${encodeURIComponent(remark)}`;
             document.getElementById('vlessLinkText').value = vlessUrl;
 
