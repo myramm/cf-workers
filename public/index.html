@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DUAR VPN - Multi Server & Provider VLESS Generator</title>
+    <title>DUAR VPN - Multi Country & Provider VLESS Generator</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -55,7 +55,7 @@
                     <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-brand-400 to-indigo-400">
                         DUAR VPN
                     </h1>
-                    <p class="text-xs text-slate-400">Multi-Country & Indonesian ISP VLESS Generator</p>
+                    <p class="text-xs text-slate-400">Multi-Country & Provider VLESS Generator</p>
                 </div>
             </div>
             <div class="flex items-center gap-2">
@@ -75,10 +75,10 @@
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
                     <h2 class="text-2xl font-bold text-white flex items-center gap-2">
-                        🇮🇩 Server Indonesia & Internasional
+                        🌍 Buat Akun VLESS Sesuai Kebutuhan
                     </h2>
                     <p class="text-slate-400 text-sm mt-1">
-                        Pilih server Telkom Indonesia, Biznet, IDCloudHost, Prancis, Bulgaria, Singapura, dll.
+                        Pilih negara di atas, lalu pilih provider datacenter dan jalur operator internet Anda.
                     </p>
                 </div>
                 <div class="text-xs text-slate-400 bg-dark-900/80 px-4 py-2.5 rounded-xl border border-slate-700/50">
@@ -93,34 +93,36 @@
             <div class="lg:col-span-6 space-y-6">
                 <div class="glass rounded-2xl p-6 space-y-5">
                     <h3 class="text-lg font-semibold text-white flex items-center gap-2 border-b border-slate-800 pb-3">
-                        <i class="fa-solid fa-sliders text-brand-400"></i> Pengaturan Server & Provider
+                        <i class="fa-solid fa-sliders text-brand-400"></i> Pengaturan Akun
                     </h3>
 
-                    <!-- Server Location (ProxyIP Path) -->
+                    <!-- 1. PILIH NEGARA -->
                     <div>
-                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-                            📍 Lokasi Negara / Server Keluar (Datacenter)
+                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                            <span class="w-4 h-4 rounded-full bg-brand-500 text-slate-950 font-bold flex items-center justify-center text-[10px]">1</span>
+                            Pilih Negara Server (Outbound Country)
                         </label>
-                        <select id="selectServerLocation" onchange="handleServerChange()" class="w-full bg-dark-900 border border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-brand-400 font-semibold focus:outline-none focus:border-brand-500">
-                            <optgroup label="🇮🇩 Server Indonesia">
-                                <option value="/103.84.207.2-443" data-name="DUAR-Telkom Indonesia 🇮🇩" selected>🇮🇩 Indonesia - Telkom Indonesia (Jakarta - 103.84.207.2)</option>
-                                <option value="/103.186.0.4-443" data-name="DUAR-Biznet Data Center 🇮🇩">🇮🇩 Indonesia - Biznet Data Center (Jakarta - 103.186.0.4)</option>
-                                <option value="/103.175.216.14-443" data-name="DUAR-IDCloudHost 🇮🇩">🇮🇩 Indonesia - IDCloudHost (Jakarta - 103.175.216.14)</option>
-                                <option value="/103.147.154.2-443" data-name="DUAR-Cyber Data Center 🇮🇩">🇮🇩 Indonesia - Cyber Data Center (IDC Jakarta - 103.147.154.2)</option>
-                                <option value="/id.proxyip.fxxk.dedyn.io-443" data-name="DUAR-Indosat/Matrix 🇮🇩">🇮🇩 Indonesia - Indosat / Matrix Outbound</option>
-                            </optgroup>
-                            <optgroup label="🌍 Server Luar Negeri">
-                                <option value="/?ed=2048" data-name="DUAR-SG Fast 🇸🇬">🇸🇬 Singapura (Cloudflare Fast Anycast)</option>
-                                <option value="/109.120.134.91-2053" data-name="NDESAH-AEZA GROUP 🇫🇷">🇫🇷 Prancis (AEZA GROUP LLC - 109.120.134.91:2053)</option>
-                                <option value="/185.148.146.9-443" data-name="Rastore-Belcloud 🇧🇬">🇧🇬 Bulgaria (Belcloud LTD - 185.148.146.9:443)</option>
-                                <option value="/us.proxyip.fxxk.dedyn.io-443" data-name="DUAR-US 🇺🇸">🇺🇸 Amerika Serikat (US Outbound)</option>
-                                <option value="/jp.proxyip.fxxk.dedyn.io-443" data-name="DUAR-JP 🇯🇵">🇯🇵 Jepang (Tokyo Outbound)</option>
-                                <option value="/de.proxyip.fxxk.dedyn.io-443" data-name="DUAR-DE 🇩🇪">🇩🇪 Jerman (Frankfurt Outbound)</option>
-                                <option value="/uk.proxyip.fxxk.dedyn.io-443" data-name="DUAR-UK 🇬🇧">🇬🇧 Inggris (London Outbound)</option>
-                            </optgroup>
-                            <optgroup label="🛠️ Kustom">
-                                <option value="custom" data-name="DUAR-Custom">🛠️ Masukkan Custom Proxy IP & Port...</option>
-                            </optgroup>
+                        <select id="selectCountry" onchange="handleCountryChange()" class="w-full bg-dark-900 border border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-brand-400 font-semibold focus:outline-none focus:border-brand-500">
+                            <option value="id" selected>🇮🇩 Indonesia</option>
+                            <option value="sg">🇸🇬 Singapura</option>
+                            <option value="fr">🇫🇷 Prancis (France)</option>
+                            <option value="bg">🇧🇬 Bulgaria</option>
+                            <option value="us">🇺🇸 Amerika Serikat (USA)</option>
+                            <option value="jp">🇯🇵 Jepang (Japan)</option>
+                            <option value="de">🇩🇪 Jerman (Germany)</option>
+                            <option value="uk">🇬🇧 Inggris (United Kingdom)</option>
+                            <option value="custom">🛠️ Kustom Proxy IP Sendiri</option>
+                        </select>
+                    </div>
+
+                    <!-- 2. PILIH PROVIDER / DATACENTER (Dinamis sesuai negara) -->
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                            <span class="w-4 h-4 rounded-full bg-brand-500 text-slate-950 font-bold flex items-center justify-center text-[10px]">2</span>
+                            Pilih Provider / Datacenter Server
+                        </label>
+                        <select id="selectProvider" onchange="handleProviderChange()" class="w-full bg-dark-900 border border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-brand-500">
+                            <!-- Populated dynamically by JS -->
                         </select>
                         <div id="customProxyBox" class="hidden mt-2 flex gap-2">
                             <input type="text" id="customProxyIp" placeholder="IP: 103.84.207.2" class="flex-1 bg-dark-900 border border-slate-700/80 rounded-xl px-3 py-2 text-xs text-slate-200 font-mono focus:outline-none focus:border-brand-500">
@@ -128,10 +130,11 @@
                         </div>
                     </div>
 
-                    <!-- Clean IP Inbound Presets (Provider ISP Indonesia) -->
+                    <!-- 3. PILIH OPERATOR JALUR HP (Clean IP Inbound) -->
                     <div>
-                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-                            📶 Jalur Operator Internet (Inbound Clean IP)
+                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                            <span class="w-4 h-4 rounded-full bg-brand-500 text-slate-950 font-bold flex items-center justify-center text-[10px]">3</span>
+                            Pilih Jalur Operator Internet Anda (Clean IP)
                         </label>
                         <select id="selectCleanIp" onchange="handleCleanIpChange()" class="w-full bg-dark-900 border border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-brand-500">
                             <option value="104.18.2.1">🔴 Telkomsel / By.U (104.18.2.1)</option>
@@ -247,7 +250,42 @@
         let currentTab = 'vless';
         let qrcode = null;
 
+        // Data Provider Berdasarkan Negara
+        const countryProviders = {
+            id: [
+                { name: "🏢 Telkom Indonesia (Jakarta)", path: "/103.84.207.2-443", tag: "DUAR-Telkom 🇮🇩" },
+                { name: "🏢 Biznet Data Center (Jakarta)", path: "/103.186.0.4-443", tag: "DUAR-Biznet 🇮🇩" },
+                { name: "🏢 IDCloudHost (Jakarta)", path: "/103.175.216.14-443", tag: "DUAR-IDCloudHost 🇮🇩" },
+                { name: "🏢 Cyber Data Center IDC (Jakarta)", path: "/103.147.154.2-443", tag: "DUAR-Cyber IDC 🇮🇩" },
+                { name: "🏢 Indosat Ooredoo / Matrix", path: "/id.proxyip.fxxk.dedyn.io-443", tag: "DUAR-Indosat 🇮🇩" }
+            ],
+            sg: [
+                { name: "⚡ Cloudflare Anycast SG", path: "/?ed=2048", tag: "DUAR-SG Fast 🇸🇬" },
+                { name: "🏢 DigitalOcean Singapore", path: "/sg.proxyip.fxxk.dedyn.io-443", tag: "DUAR-DO SG 🇸🇬" }
+            ],
+            fr: [
+                { name: "🏢 AEZA GROUP LLC (109.120.134.91:2053)", path: "/109.120.134.91-2053", tag: "NDESAH-AEZA 🇫🇷" },
+                { name: "🏢 OVHcloud France", path: "/fr.proxyip.fxxk.dedyn.io-443", tag: "DUAR-OVH 🇫🇷" }
+            ],
+            bg: [
+                { name: "🏢 Belcloud LTD (185.148.146.9:443)", path: "/185.148.146.9-443", tag: "Rastore-Belcloud 🇧🇬" }
+            ],
+            us: [
+                { name: "🏢 Cloudflare US Datacenter", path: "/us.proxyip.fxxk.dedyn.io-443", tag: "DUAR-US 🇺🇸" }
+            ],
+            jp: [
+                { name: "🏢 Tokyo Datacenter (Japan)", path: "/jp.proxyip.fxxk.dedyn.io-443", tag: "DUAR-JP 🇯🇵" }
+            ],
+            de: [
+                { name: "🏢 Frankfurt Datacenter (Germany)", path: "/de.proxyip.fxxk.dedyn.io-443", tag: "DUAR-DE 🇩🇪" }
+            ],
+            uk: [
+                { name: "🏢 London Datacenter (United Kingdom)", path: "/uk.proxyip.fxxk.dedyn.io-443", tag: "DUAR-UK 🇬🇧" }
+            ]
+        };
+
         function init() {
+            handleCountryChange(false);
             generateConfig();
         }
 
@@ -259,15 +297,43 @@
             if (triggerGenerate) generateConfig();
         }
 
-        function handleServerChange() {
-            const select = document.getElementById('selectServerLocation');
+        function handleCountryChange(triggerGenerate = true) {
+            const country = document.getElementById('selectCountry').value;
+            const providerSelect = document.getElementById('selectProvider');
             const customBox = document.getElementById('customProxyBox');
-            const selectedOption = select.options[select.selectedIndex];
             
-            if (select.value === 'custom') {
+            providerSelect.innerHTML = '';
+
+            if (country === 'custom') {
+                providerSelect.classList.add('hidden');
                 customBox.classList.remove('hidden');
+                document.getElementById('inputRemark').value = 'DUAR-Custom';
             } else {
+                providerSelect.classList.remove('hidden');
                 customBox.classList.add('hidden');
+
+                const providers = countryProviders[country] || [];
+                providers.forEach((prov, idx) => {
+                    const opt = document.createElement('option');
+                    opt.value = prov.path;
+                    opt.text = prov.name;
+                    opt.setAttribute('data-name', prov.tag);
+                    if (idx === 0) opt.selected = true;
+                    providerSelect.appendChild(opt);
+                });
+
+                if (providers.length > 0) {
+                    document.getElementById('inputRemark').value = providers[0].tag;
+                }
+            }
+
+            if (triggerGenerate) generateConfig();
+        }
+
+        function handleProviderChange() {
+            const providerSelect = document.getElementById('selectProvider');
+            const selectedOption = providerSelect.options[providerSelect.selectedIndex];
+            if (selectedOption) {
                 document.getElementById('inputRemark').value = selectedOption.getAttribute('data-name');
             }
             generateConfig();
@@ -285,14 +351,15 @@
         }
 
         function getActivePath() {
-            const select = document.getElementById('selectServerLocation');
-            if (select.value === 'custom') {
+            const country = document.getElementById('selectCountry').value;
+            if (country === 'custom') {
                 const ip = document.getElementById('customProxyIp').value.trim();
                 const port = document.getElementById('customProxyPort').value.trim() || '443';
                 if (ip) return `/${ip}-${port}`;
                 return '/?ed=2048';
             }
-            return select.value;
+            const providerSelect = document.getElementById('selectProvider');
+            return providerSelect.value || '/?ed=2048';
         }
 
         function getActiveServerIp() {
